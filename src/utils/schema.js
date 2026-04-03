@@ -76,7 +76,8 @@ export const stepSchema = {
                     label: "Email",
                     rules: {
                         required: true,
-                        email: true
+                        email: true,
+                        requiredMessage: "Please include an '@' in the email address"
                     }
                 },
                 phone: {
@@ -102,51 +103,51 @@ export const stepSchema = {
                     }
                 },
 
-                // gender: {
-                //     type: "radio",
-                //     label: "Gender",
-                //     options: [
-                //         { label: "Male", value: "male" },
-                //         { label: "Female", value: "female" }
-                //     ],
-                //     rules: {
-                //         required: true,
-                //         requiredMessage: "Gender is required"
-                //     }
-                // },
+                gender: {
+                    type: "radio",
+                    label: "Gender",
+                    options: [
+                        { label: "Male", value: "male" },
+                        { label: "Female", value: "female" }
+                    ],
+                    rules: {
+                        required: true,
+                        requiredMessage: "Gender is required"
+                    }
+                },
 
-                // hobbies: {
-                //     type: "checkbox",
-                //     label: "Hobbies",
-                //     options: [
-                //         { label: "Cricket", value: "cricket" },
-                //         { label: "Music", value: "music" }
-                //     ],
-                //     rules: {
-                //         required: true,
-                //         requiredMessage: "Hobbies is required"
-                //     }
-                // },
+                hobbies: {
+                    type: "checkbox",
+                    label: "Hobbies",
+                    options: [
+                        { label: "Cricket", value: "cricket" },
+                        { label: "Music", value: "music" }
+                    ],
+                    rules: {
+                        required: true,
+                        requiredMessage: "Hobbies is required"
+                    }
+                },
 
-                // resume: {
-                //     type: "file",
-                //     label: "Upload Resume",
-                //     accept: ".pdf,.doc",
-                //     rules: {
-                //         required: true,
-                //         requiredMessage: "File is required"
-                //     }
-                // },
+                resume: {
+                    type: "file",
+                    label: "Upload Resume",
+                    accept: ".pdf,.doc",
+                    rules: {
+                        required: true,
+                        requiredMessage: "File is required"
+                    }
+                },
 
-                // profileImage: {
-                //     type: "dropzone",
-                //     label: "Upload Profile Image",
-                //     accept: "image/*",
-                //     rules: {
-                //         required: true,
-                //         requiredMessage: "Profile is required"
-                //     }
-                // }
+                profileImage: {
+                    type: "dropzone",
+                    label: "Upload Profile Image",
+                    accept: "image/*",
+                    rules: {
+                        required: true,
+                        requiredMessage: "Profile is required"
+                    }
+                }
             }
         }
     ]
