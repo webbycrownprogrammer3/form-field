@@ -92,7 +92,7 @@ export default function Page() {
       <h1>Form Test</h1>
 
       {/* ✅ Normal Form */}
-      <Form schema={formSchema} onSubmit={handleSubmit} />
+      
 
       {/* ✅ Step Form */}
       <StepForm
