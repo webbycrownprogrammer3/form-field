@@ -1,31 +1,3 @@
-// "use client";
-
-// import React from "react";
-// import { Form, StepForm } from "field-validation";
-// import { formSchema, stepSchema } from "@/utils/schema";
-
-// export default function Page() {
-//   const handleSubmit = (data) => {
-//     console.log("Form Data:", data);
-//   };
-
-//   return (
-//     <div style={{ padding: "200px" }}>
-//       <h1>Form Test</h1>
-
-//       <Form
-//         schema={formSchema}
-//         onSubmit={handleSubmit}
-//       />
-//       <StepForm
-//         schema={stepSchema}
-//         onSubmit={(data) => console.log("Step Data:", data)}
-//         // apiError="Server down"
-//       />
-//     </div>
-//   );
-// }
-
 "use client";
 
 import React, { useState } from "react";
@@ -33,57 +5,54 @@ import { Form, StepForm } from "field-validation";
 import { formSchema, stepSchema } from "@/utils/schema";
 
 export default function Page() {
-  const [apiError, setApiError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // ✅ Separate states
+  const [formLoading, setFormLoading] = useState(false);
+  const [formApiError, setFormApiError] = useState(null);
 
-  // ✅ normal form submit
-  const handleSubmit = (data) => {
+  const [stepLoading, setStepLoading] = useState(false);
+  const [stepApiError, setStepApiError] = useState(null);
+
+  // =========================
+  // ✅ Normal Form Submit
+  // =========================
+  const handleFormSubmit = async (data) => {
     console.log("Form Data:", data);
+
+    setFormLoading(true);
+    setFormApiError(null);
+
+    try {
+      await new Promise((resolve, reject) =>
+        setTimeout(() => {
+          reject(new Error("Form API failed")); // ❌ simulate error
+        }, 1500)
+      );
+    } catch (err) {
+      setFormApiError(err.message);
+    } finally {
+      setFormLoading(false);
+    }
   };
 
-  // ✅ step form submit (simulate API)
-  // const handleStepSubmit = async (data) => {
-  //   console.log("Step Data:", data);
-  //   setLoading(true);
-
-  //   setApiError(null); // reset first
-
-  //   try {
-  //     // 🔥 simulate API call
-  //     await new Promise((resolve, reject) =>
-  //       setTimeout(() => {
-  //         reject(new Error("Server not working")); // ❌ simulate error
-  //       }, 1500)
-  //     );
-
-  //     // ✅ success case (if needed)
-  //     // setApiError(null);
-  //   } catch (err) {
-  //     setApiError(err.message);
-  //     setLoading(false);
-  //   }
-  // };
-
+  // =========================
+  // ✅ Step Form Submit
+  // =========================
   const handleStepSubmit = async (data) => {
     console.log("Step Data:", data);
 
-    setLoading(true);
-    setApiError(null);
+    setStepLoading(true);
+    setStepApiError(null);
 
     try {
-      // ✅ simulate SUCCESS API
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve(); // ✅ success
-        }, 1500),
+        }, 1500)
       );
-
-      // ✅ set success data
-      // setSubmittedData(data);
     } catch (err) {
-      setApiError(err.message);
+      setStepApiError(err.message);
     } finally {
-      setLoading(false);
+      setStepLoading(false);
     }
   };
 
@@ -92,15 +61,20 @@ export default function Page() {
       <h1>Form Test</h1>
 
       {/* ✅ Normal Form */}
-      
+      <Form
+        schema={formSchema}
+        onSubmit={handleFormSubmit}
+        loading={formLoading}
+        apiError={formApiError}
+      />
 
       {/* ✅ Step Form */}
       <StepForm
         schema={stepSchema}
         onSubmit={handleStepSubmit}
-        loading={loading}
-        apiError={apiError} // 🔥 dynamic
-        // type={"layoutThree"}
+        loading={stepLoading}
+        apiError={stepApiError}
+      // type={"layoutThree"}
       />
     </div>
   );

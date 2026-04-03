@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "field-validation": "file:./field-validation-1.0.0.tgz",
+    "field-validation": "file:../../field-validation/field-validation-1.0.0.tgz",
     "next": "16.2.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"

@@ -76,8 +76,7 @@ export const stepSchema = {
                     label: "Email",
                     rules: {
                         required: true,
-                        email: true,
-                        requiredMessage: "Please include an '@' in the email address"
+                        email: true
                     }
                 },
                 phone: {
@@ -103,51 +102,51 @@ export const stepSchema = {
                     }
                 },
 
-                gender: {
-                    type: "radio",
-                    label: "Gender",
-                    options: [
-                        { label: "Male", value: "male" },
-                        { label: "Female", value: "female" }
-                    ],
-                    rules: {
-                        required: true,
-                        requiredMessage: "Gender is required"
-                    }
-                },
+                // gender: {
+                //     type: "radio",
+                //     label: "Gender",
+                //     options: [
+                //         { label: "Male", value: "male" },
+                //         { label: "Female", value: "female" }
+                //     ],
+                //     rules: {
+                //         required: true,
+                //         requiredMessage: "Gender is required"
+                //     }
+                // },
 
-                hobbies: {
-                    type: "checkbox",
-                    label: "Hobbies",
-                    options: [
-                        { label: "Cricket", value: "cricket" },
-                        { label: "Music", value: "music" }
-                    ],
-                    rules: {
-                        required: true,
-                        requiredMessage: "Hobbies is required"
-                    }
-                },
+                // hobbies: {
+                //     type: "checkbox",
+                //     label: "Hobbies",
+                //     options: [
+                //         { label: "Cricket", value: "cricket" },
+                //         { label: "Music", value: "music" }
+                //     ],
+                //     rules: {
+                //         required: true,
+                //         requiredMessage: "Hobbies is required"
+                //     }
+                // },
 
-                resume: {
-                    type: "file",
-                    label: "Upload Resume",
-                    accept: ".pdf,.doc",
-                    rules: {
-                        required: true,
-                        requiredMessage: "File is required"
-                    }
-                },
+                // resume: {
+                //     type: "file",
+                //     label: "Upload Resume",
+                //     accept: ".pdf,.doc",
+                //     rules: {
+                //         required: true,
+                //         requiredMessage: "File is required"
+                //     }
+                // },
 
-                profileImage: {
-                    type: "dropzone",
-                    label: "Upload Profile Image",
-                    accept: "image/*",
-                    rules: {
-                        required: true,
-                        requiredMessage: "Profile is required"
-                    }
-                }
+                // profileImage: {
+                //     type: "dropzone",
+                //     label: "Upload Profile Image",
+                //     accept: "image/*",
+                //     rules: {
+                //         required: true,
+                //         requiredMessage: "Profile is required"
+                //     }
+                // }
             }
         }
     ]
@@ -161,7 +160,12 @@ export const formSchema = {
             rules: {
                 required: true,
                 requiredMessage: "Name is required"
-            }
+            },
+            errorIcon: (
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+                </svg>
+            )
         },
 
         username: {
@@ -169,7 +173,12 @@ export const formSchema = {
             label: "Username",
             rules: {
                 minLength: 3
-            }
+            },
+            errorIcon: (
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+                </svg>
+            )
         },
 
         bio: {
@@ -178,7 +187,12 @@ export const formSchema = {
             rules: {
                 required: true,
                 maxLength: 10
-            }
+            },
+            errorIcon: (
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+                </svg>
+            )
         },
 
         email: {
@@ -187,7 +201,12 @@ export const formSchema = {
             rules: {
                 required: true,
                 email: true
-            }
+            },
+            errorIcon: (
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+                </svg>
+            )
         },
 
         phone: {
