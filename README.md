@@ -1,15 +1,22 @@
-# React Advanced Rich Text Editor Demo
+# React Smart Form Demo
 
-A comprehensive demonstration project for [@webbycrown/react-advanced-richtext-editor](https://www.npmjs.com/package/@webbycrown/react-advanced-richtext-editor) built with Next.js.
+A comprehensive demonstration project for [@webbycrown/react-smart-form](https://www.npmjs.com/package/@webbycrown/react-advanced-richtext-editor) built with Next.js.
 
 ## Features Demonstrated
 
-This demo showcases multiple use cases and features of the rich text editor:
+This demo showcases multiple use cases and features of the field-validation package:
 
-1. **Basic Editor with State Management** - Track content changes, save, load, and clear functionality
-2. **Pre-filled Content Editor** - Editor with initial HTML content
-3. **HTML Output Preview** - View both rendered and raw HTML output
-4. **Compact Editor** - Smaller editor instance for inline editing
+1. **Basic Form with State Management** – Handle form submission, loading state, and API error handling using the Form component
+
+2. **Schema-Based Form Rendering** – Dynamically generate form fields using a centralized schema configuration
+
+3. **Step Form (Multi-Step Workflow)** – Multi-step form with step-wise validation and smooth navigation using StepForm
+
+4. **API Integration Handling** – Demonstrates async submission with loading indicators and error display support
+
+5. **Validation System** – Built-in validation rules like required fields, email validation, and custom rules
+
+6. **Layout Customization** – Ability to switch between different layouts (e.g., layoutThree) for better UI flexibility
 
 ## Getting Started
 
