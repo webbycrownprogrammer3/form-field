@@ -719,7 +719,11 @@ export const formSchema = {
             rules: {
                 required: true,
                 validate: (value) =>
-                    value !== "admin" || "Value 'admin' is not allowed",
+                    value !== "admin" || (
+                        <div style={{ color: "red", fontSize: "12px" }}>
+                            <span style={{ color: "orange", fontWeight: "1200" }}>Admin</span> is not allowed
+                        </div>
+                    ),
             },
             errorIcon: (
                 <svg viewBox="0 0 24 24">

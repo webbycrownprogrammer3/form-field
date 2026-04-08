@@ -222,7 +222,7 @@ export default function ExamplesPage() {
             onSubmit={handleFormSubmit}
             loading={formLoading}
             apiError={formApiError}
-          // errorType={"beforField"}
+          
           />
         );
       case "form-layout-two":
@@ -246,6 +246,7 @@ export default function ExamplesPage() {
             loading={formLoadingThree}
             apiError={formApiErrorThree}
             type={"layoutThree"}
+            errorType={"popup"}
           />
         );
       case "step":
@@ -257,6 +258,7 @@ export default function ExamplesPage() {
             loading={stepLoading}
             apiError={stepApiError}
             stepShow={true}
+
           />
         );
       case "step-form-layout-two":
@@ -269,6 +271,7 @@ export default function ExamplesPage() {
             errorType={"beforField"}
             loading={stepLoadingTwo}
             apiError={stepApiErrorTwo}
+
           />
         );
       case "step-form-layout-three":
@@ -281,6 +284,7 @@ export default function ExamplesPage() {
             stepShow={true}
             loading={stepLoadingThree}
             apiError={stepApiErrorThree}
+            errorType={"popup"}
           />
         );
       default:

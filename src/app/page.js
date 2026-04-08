@@ -20,10 +20,10 @@ export default function Home() {
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-              React Smart
+              React
               <br />
               <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                Forms
+                Formix
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-4 leading-relaxed">
@@ -215,8 +215,8 @@ export default function Home() {
                   What You Can Build
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
-                  From simple forms to complex multi-step workflows, React Smart
-                  Forms adapts to every use case
+                  From simple forms to complex multi-step workflows, React Formix
+ adapts to every use case
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -396,7 +396,7 @@ export default function Home() {
           <div className="bg-white dark:bg-black rounded-2xl shadow-xl p-8 md:p-12 border border-blue-200 dark:border-blue-800">
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">
-                Why Choose React Smart Forms?
+                Why Choose React Formix ?
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Built for developers who need flexible, scalable, and

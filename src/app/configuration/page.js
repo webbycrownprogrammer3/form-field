@@ -44,7 +44,7 @@ export default function ConfigurationPage() {
           </div>
 
           <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-            React Smart Forms provides flexible props to control form behavior, validation, layout,
+            React Formix provides flexible props to control form behavior, validation, layout,
             and API handling. The only required prop is{" "}
             <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">
               schema

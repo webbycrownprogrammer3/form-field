@@ -19,7 +19,7 @@ export default function Footer() {
               </p>
               <div className="flex gap-4">
                 <a
-                  href="https://www.npmjs.com/package/@webbycrown/react-advanced-richtext-editor"
+                  href="https://www.npmjs.com/package/@webbycrown/formix"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200"
@@ -80,7 +80,7 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="https://www.npmjs.com/package/@webbycrown/react-advanced-richtext-editor"
+                    href="https://www.npmjs.com/package/@webbycrown/formix"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-block  duration-200"
@@ -120,7 +120,7 @@ export default function Footer() {
                 Need help? Check out our comprehensive documentation or reach out to our support team.
               </p>
               <a
-                href="https://www.npmjs.com/package/@webbycrown/react-advanced-richtext-editor"
+                href="https://www.npmjs.com/package/@webbycrown/formix"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white text-sm font-medium rounded-lg hover:from-blue-700 hover:to-blue-900 transition-all duration-200 shadow-md hover:shadow-lg"
@@ -142,12 +142,12 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 <a
-                  href="https://www.npmjs.com/package/@webbycrown/react-advanced-richtext-editor"
+                  href="https://www.npmjs.com/package/@webbycrown/formix"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-semibold text-blue-600 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  @webbycrown/react-advanced-richtext-editor
+                  @webbycrown/formix
                 </a>
               </p>
               <span className="hidden md:inline text-blue-300 dark:text-blue-700">|</span>

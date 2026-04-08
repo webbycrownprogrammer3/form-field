@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "React Form Validation Library — Simple & Multi-Step Forms",
+  title: "React Formix Library — Simple & Multi-Step Forms",
   description: "A powerful React form validation library with schema-based validation, simple forms, and multi-step forms. Easy to integrate, lightweight, and developer-friendly.",
   icons: {
     icon: [
