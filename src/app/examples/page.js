@@ -183,7 +183,7 @@ export default function ExamplesPage() {
       title: "Simple Form Layout Three",
       icon: "📝",
       description:
-        "Basic form using layoutOne with schema-based validation. Includes API-based loading state and displays submitted data after successful submission. Ideal for contact forms, login, and simple data collection.",
+        "Advanced LayoutThree version of the form with custom UI and enhanced features. Includes different styled error icons, supports multi-select dropdowns using multiSelect: true, and allows images inside radio and checkbox options via schema configuration. ",
       color: "blue",
     },
     {
@@ -234,6 +234,7 @@ export default function ExamplesPage() {
             loading={formLoadingTwo}
             apiError={formApiErrorTwo}
             errorType={"beforField"}
+            type={"layoutTwo"}
           />
         );
       case "form-layout-three":
@@ -244,6 +245,7 @@ export default function ExamplesPage() {
             onSubmit={handleFormSubmitThree}
             loading={formLoadingThree}
             apiError={formApiErrorThree}
+            type={"layoutThree"}
           />
         );
       case "step":
@@ -646,6 +648,7 @@ export default function Page() {
         loading={formLoadingTwo}
         apiError={formApiErrorTwo}
         errorType={"beforField"}
+        type={"layoutTwo"}
       />
     </>
   );
@@ -888,6 +891,7 @@ export default function Page() {
         onSubmit={handleFormSubmitThree}
         loading={formLoadingThree}
         apiError={formApiErrorThree}
+        type={"layoutThree"}
       />
     </>
   );
