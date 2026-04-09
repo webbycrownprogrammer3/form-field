@@ -222,7 +222,7 @@ export default function ExamplesPage() {
             onSubmit={handleFormSubmit}
             loading={formLoading}
             apiError={formApiError}
-          
+
           />
         );
       case "form-layout-two":
@@ -235,6 +235,7 @@ export default function ExamplesPage() {
             apiError={formApiErrorTwo}
             errorType={"beforField"}
             type={"layoutTwo"}
+            gridType={3}
           />
         );
       case "form-layout-three":

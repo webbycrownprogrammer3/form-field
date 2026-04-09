@@ -30,7 +30,7 @@ This demo showcases multiple use cases and features of the field-validation pack
 The package is already installed. If you need to reinstall:
 
 ```bash
-npm install @webbycrown/react-advanced-richtext-editor
+npm install @webbycrown/formix
 ```
 
 ### Running the Demo
@@ -54,8 +54,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### Basic Usage
 
 ```jsx
-import Editor from "@webbycrown/react-advanced-richtext-editor";
-import "@webbycrown/react-advanced-richtext-editor/dist/styles.css";
+import Editor from "@webbycrown/formix";
+import "@webbycrown/formix/dist/styles.css";
 
 function MyComponent() {
   const [content, setContent] = useState("");
@@ -73,10 +73,116 @@ function MyComponent() {
 
 ### Key Props
 
-- `value` - The HTML content of the editor (controlled component)
-- `onChange` - Callback function that receives the HTML content when it changes
-- `height` - Height of the editor in pixels
-- `placeholder` - Placeholder text shown when editor is empty
+### Form Props
+
+- `schema` (object)  
+  Defines form fields and validation rules.
+
+- `onSubmit` (function)  
+  Callback triggered on form submit. Receives form data.
+
+- `loading` (boolean)  
+  Shows loader UI when `true`.
+
+- `apiError` (string | null)  
+  Displays API error message after submission.
+
+- `errorType` (string)  
+  Controls how validation errors are displayed.  
+  Supported values:
+  - `"beforeField"` → Show error above field
+  - `"afterField"` → Show error below field
+  - `"top"` → Show all errors at top
+  - `"popup"` → Show all errors in modal popup
+
+- `type` (string)  
+  Controls layout design.  
+  Supported values:
+  - `"layoutTwo"`
+  - `"layoutThree"`  
+    (default layout is applied if not provided)
+
+### StepForm Props
+
+- `schema` (object)  
+  Defines multi-step structure with fields per step.
+
+- `onSubmit` (function)  
+  Called when final step is submitted.
+
+- `loading` (boolean)  
+  Shows loading state.
+
+- `apiError` (string | null)  
+  Displays API error.
+
+- `errorType` (string)  
+  Same as Form (`beforeField`, `afterField`, `top`, `popup`)
+
+- `stepShow` (boolean)  
+  Shows step indicator (progress UI) if `true`.
+
+- `type` (string)  
+  Layout type (e.g. `"layoutTwo"`, `"layoutThree"`)
+
+### Field Configuration
+
+Each field supports:
+
+- `type` (string)  
+  Field type:
+  - `text`, `email`, `password`
+  - `textarea`
+  - `date`, `time`
+  - `select`
+  - `radio`
+  - `checkbox`
+  - `file`
+  - `dropzone`
+
+- `label` (string)  
+  Field label
+
+- `placeholder` (string)  
+  Input placeholder
+
+- `options` (array)  
+  Required for `select`, `radio`, `checkbox`  
+  Example:
+  { label: "India", value: "india" }
+
+- `multiSelect` (boolean)  
+  Enables multi-select dropdown
+
+- `accept` (string)  
+  File types for file/dropzone input
+
+- `errorIcon` (JSX)  
+  Custom icon for error display
+
+- `rules` (object)  
+  Validation rules (see below)
+
+### Validation Rules
+
+- `required` (boolean)
+- `requiredMessage` (string)
+
+- `minLength` (number)
+- `maxLength` (number)
+
+- `email` (boolean)
+
+- `pattern` (RegExp)
+- `patternMessage` (string)
+
+- `validate` (function)  
+  Custom validation function
+
+  Return values:
+  - `true` → valid
+  - `"string"` → error message
+  - `JSX` → custom error UI
 
 ## Project Structure
 
@@ -90,14 +196,25 @@ src/
 
 ## Features
 
-- ✅ Rich text formatting (bold, italic, underline)
-- ✅ Headings and text alignment
-- ✅ Lists (ordered and unordered)
-- ✅ Links and images
-- ✅ Customizable height
-- ✅ Placeholder support
-- ✅ Controlled component support
-- ✅ Dark mode compatible
+- ✅ Schema-based form validation
+- ✅ Multi-step form support (StepForm)
+- ✅ Multiple layouts (default, layoutTwo, layoutThree)
+- ✅ Flexible error handling:
+  - Field level (`beforeField`, `afterField`)
+  - Global top error summary (`beforField`)
+  - Popup modal errors (`popup`)
+- ✅ Custom error UI support (JSX / HTML)
+- ✅ Error icon support per field
+- ✅ Step-wise validation (only current step errors)
+- ✅ API integration with loading & error states
+- ✅ Success screen with submitted data preview
+- ✅ Multi-select dropdown support
+- ✅ Image support in radio & checkbox fields
+- ✅ File upload & drag-and-drop (dropzone) support
+- ✅ Date & time input support
+- ✅ Fully controlled form behavior
+- ✅ Dynamic and reusable schema structure
+- ✅ Easy global styling via CSS import
 
 ## Learn More
 

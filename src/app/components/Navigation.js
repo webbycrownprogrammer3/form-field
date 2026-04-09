@@ -10,6 +10,7 @@ export default function Navigation() {
     { href: "/features", label: "Features" },
     { href: "/configuration", label: "Configuration" },
     { href: "/examples", label: "Examples" },
+    { href: "/field-type", label: "Field-Type" },
   ];
 
   return (
@@ -18,8 +19,8 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
             <img src="/assets/logo.svg" alt="Logo" className="w-20 h-20 object-contain" />
-          
-           
+
+
           </Link>
           <div className="flex items-center gap-4">
             {/* Main Navigation */}
@@ -31,8 +32,8 @@ export default function Navigation() {
                     key={item.href}
                     href={item.href}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive
-                        ? "bg-blue-600 text-white"
-                        : "text-black dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                      ? "bg-blue-600 text-white"
+                      : "text-black dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900/20"
                       }`}
                   >
                     {item.label}
