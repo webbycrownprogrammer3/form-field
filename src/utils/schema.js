@@ -651,12 +651,12 @@ export const formSchema = {
                 required: true,
                 requiredMessage: "Name is required",
             },
-            // errorIcon: (
-            //     <svg viewBox="0 0 24 24">
-            //         <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-            //     </svg>
-            // ),
-            errorImage: "images/man.jpg"
+            errorIcon: (
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+                </svg>
+            ),
+            // errorImage: "images/man.jpg"
         },
 
         username: {
