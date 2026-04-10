@@ -2320,6 +2320,139 @@ export default function FieldTypePage() {
 
                     </div>
 
+                    <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+                        <h2 className="text-2xl font-bold text-blue-600 mb-2">Info Field (Text with Custom HTML Error)</h2>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                            A text input field that supports required validation, maximum length restriction, custom HTML-based error messages, and visual error feedback using an image.
+                        </p>
+                    </div>
+
+                    <div className="p-6 space-y-6">
+
+                        {/* Field Name */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                                Field: <span className="text-blue-500">info</span>
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                This represents the unique key used to identify the info text field in the form schema.
+                            </p>
+                        </div>
+
+                        {/* Description */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                                Description
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                This field renders a standard text input where users can enter short information. It includes advanced validation with a fully customizable HTML error message and optional error image display for enhanced user experience.
+                            </p>
+                        </div>
+
+                        {/* Schema Block */}
+                        <div className="bg-gray-900 dark:bg-gray-950 rounded-xl overflow-hidden">
+                            <div className="flex justify-between px-4 py-2 bg-gray-800 text-gray-300 text-xs">
+                                <span>schema.js</span>
+                                <button
+                                    onClick={() =>
+                                        handleCopy(`info: {
+    type: "text",
+    label: "Info",
+    rules: {
+        required: true,
+        maxLength: 10,
+        requiredMessage: (
+            <div style={{ fontSize: "12px", color: "#ef4444" }}>
+                ❗ <b><span>Info</span> is required</b>
+            </div>
+        ),
+    },
+    errorImage: "images/man.jpg",
+},`, 14)
+                                    }
+                                    className="text-blue-400"
+                                >
+                                    {copiedIndex === 14 ? "Copied!" : "Copy"}
+                                </button>
+                            </div>
+
+                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">{`info: {
+    type: "text",
+    label: "Info",
+    rules: {
+        required: true,
+        maxLength: 10,
+        requiredMessage: (
+            <div style={{ fontSize: "12px", color: "#ef4444" }}>
+                ❗ <b><span>Info</span> is required</b>
+            </div>
+        ),
+    },
+    errorImage: "images/man.jpg",
+},`}</pre>
+                        </div>
+
+                        {/* Properties Explanation */}
+                        <div className="space-y-4">
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">type</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Defines the input type. <code>"text"</code> renders a standard text input field.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">label</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    The display name shown above or beside the input field.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">rules</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Validation rules applied to the field.
+                                </p>
+
+                                <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
+                                    <li>
+                                        <strong>required</strong>: Ensures the field cannot be empty.
+                                    </li>
+                                    <li>
+                                        <strong>maxLength</strong>: Limits input to a maximum of 10 characters.
+                                    </li>
+                                    <li>
+                                        <strong>requiredMessage</strong>: Supports custom HTML/JSX error message rendering instead of plain text.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">errorImage</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Displays an image along with the validation error to provide visual feedback.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        {/* UI Behavior */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                                UI Behavior
+                            </h3>
+
+                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Users can enter short text input</li>
+                                <li>Input is limited to 10 characters</li>
+                                <li>Custom styled HTML error message is shown when field is empty</li>
+                                <li>Error image is displayed along with validation message</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
                     {/* ================= APPLY SAME FOR REST ================= */}
                     {/* IMPORTANT: Just repeat same pattern with index 4,5,6... */}
 

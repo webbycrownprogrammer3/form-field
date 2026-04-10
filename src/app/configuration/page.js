@@ -150,6 +150,24 @@ export default function ConfigurationPage() {
                   </td>
                 </tr>
 
+                <tr>
+                  <td className="p-3 font-mono text-blue-600 dark:text-blue-400">gridType</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">Number</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">2</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">
+                    gridType for form layout two
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono text-blue-600 dark:text-blue-400">errorType</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">string</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">afterfield</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">
+                    It is used for show error in field like afterfield is bydefault,beforField and popup
+                  </td>
+                </tr>
+
               </tbody>
             </table>
           </div>
