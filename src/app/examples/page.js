@@ -89,7 +89,7 @@ export default function ExamplesPage() {
     try {
       await new Promise((resolve, reject) =>
         setTimeout(() => {
-          resolve()
+          reject(new Error("Form API failed")); // ❌ simulate error
         }, 1500),
       );
     } catch (err) {

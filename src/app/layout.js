@@ -18,11 +18,11 @@ export const metadata = {
   description: "A powerful React form validation library with schema-based validation, simple forms, and multi-step forms. Easy to integrate, lightweight, and developer-friendly.",
   icons: {
     icon: [
-      { url: '/assets/logo.svg', sizes: 'any' },
-      { url: '/assets/logo.svg', type: 'image/svg+xml' },
+      { url: '/assets/logo.png', sizes: 'any' },
+      { url: '/assets/logo.png', type: 'image/svg+xml' },
     ],
-    shortcut: '/assets/logo.svg',
-    apple: '/assets/logo.svg',
+    shortcut: '/assets/logo.png',
+    apple: '/assets/logo.png',
   },
 };
 

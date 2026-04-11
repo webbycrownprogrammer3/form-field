@@ -49,27 +49,6 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the demo.
 
-## Usage Examples
-
-### Basic Usage
-
-```jsx
-import Editor from "@webbycrown/formix";
-import "@webbycrown/formix/dist/styles.css";
-
-function MyComponent() {
-  const [content, setContent] = useState("");
-
-  return (
-    <Editor
-      value={content}
-      onChange={setContent}
-      height={400}
-      placeholder="Start typing..."
-    />
-  );
-}
-```
 
 ### Key Props
 
