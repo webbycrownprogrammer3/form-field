@@ -11,7 +11,7 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <div className="mb-4 flex items-center gap-2">
                 <Link href="/" className="flex items-center space-x-2">
-                  <img src="/assets/logo.png" alt="Logo" className="w-20 h-20 object-contain" />
+                  <img src="/assets/logo.png" alt="Logo" className="w-30 h-20 object-contain" />
                 </Link>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-6">

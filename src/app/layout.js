@@ -36,6 +36,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <link rel="icon" href="/favicon.png" sizes="any" />
         {children}
       </body>
     </html>
