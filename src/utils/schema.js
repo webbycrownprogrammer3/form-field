@@ -658,142 +658,6 @@ export const formSchema = {
       ),
     },
 
-    username: {
-      type: "text",
-      label: "Username",
-      rules: {
-        minLength: 3,
-        requiredMessage: "Name is required",
-      },
-      errorIcon: (
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-      ),
-    },
-
-    bio: {
-      type: "textarea",
-      label: "Bio",
-      rules: {
-        required: true,
-        maxLength: 10,
-        requiredMessage: (
-          <div style={{ fontSize: "12px", color: "#ef4444" }}>
-            ❗{" "}
-            <b>
-              <span>Bio</span> is required
-            </b>
-          </div>
-        ),
-      },
-      errorImage: "images/man.jpg", // ✅ Add image to field
-    },
-
-    email: {
-      type: "email",
-      label: "Email",
-      rules: {
-        required: true,
-        requiredMessage: "Email is required",
-        validate: (value) => {
-          if (!value) return true;
-
-          // ❌ No @ symbol
-          if (!value.includes("@")) {
-            return (
-              <div style={{ fontSize: "12px", color: "#f59e0b" }}>
-                Email must contain{" "}
-                <span style={{ color: "#ef4444", fontWeight: 600 }}>@</span>{" "}
-                symbol
-              </div>
-            );
-          }
-
-          // ❌ Block specific email
-          if (value === "admin@gmail.com") {
-            return (
-              <div style={{ fontSize: "12px", color: "#ef4444" }}>
-                <span style={{ fontWeight: 600 }}>{value}</span> is not
-                available and not safe
-              </div>
-            );
-          }
-
-          // ❌ Invalid email format
-          if (!/\S+@\S+\.\S+/.test(value)) {
-            return (
-              <div style={{ fontSize: "12px", color: "#f97316" }}>
-                Please enter a valid email format
-              </div>
-            );
-          }
-
-          return true;
-        },
-      },
-      errorIcon: (
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-      ),
-    },
-
-    phone: {
-      type: "text",
-      label: "Phone",
-      rules: {
-        required: true,
-        pattern: /^[0-9]{10}$/,
-        patternMessage: "Phone must be 10 digits",
-      },
-      errorIcon: (
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-      ),
-    },
-
-    customField: {
-      type: "text",
-      label: "Custom Field",
-      rules: {
-        required: true,
-        validate: (value) =>
-          value !== "admin" || (
-            <div style={{ color: "red", fontSize: "12px" }}>
-              <span style={{ color: "orange", fontWeight: "1200" }}>Admin</span>{" "}
-              is not allowed
-            </div>
-          ),
-      },
-      errorIcon: (
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-      ),
-    },
-
-    country: {
-      type: "select",
-      label: "Country",
-      multiSelect: true, // ✅ enables multi select
-      options: [
-        { label: "India", value: "india" },
-        { label: "USA", value: "usa" },
-        { label: "Canada", value: "canada" },
-      ],
-      rules: {
-        required: true,
-        requiredMessage: "Please select a country",
-      },
-      errorIcon: (
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-      ),
-    },
-
     gender: {
       type: "radio",
       label: "Gender",
@@ -859,6 +723,144 @@ export const formSchema = {
         </svg>
       ),
     },
+
+    // username: {
+    //   type: "text",
+    //   label: "Username",
+    //   rules: {
+    //     minLength: 3,
+    //     requiredMessage: "Name is required",
+    //   },
+    //   errorIcon: (
+    //     <svg viewBox="0 0 24 24">
+    //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+    //     </svg>
+    //   ),
+    // },
+
+    // bio: {
+    //   type: "textarea",
+    //   label: "Bio",
+    //   rules: {
+    //     required: true,
+    //     maxLength: 10,
+    //     requiredMessage: (
+    //       <div style={{ fontSize: "12px", color: "#ef4444" }}>
+    //         ❗{" "}
+    //         <b>
+    //           <span>Bio</span> is required
+    //         </b>
+    //       </div>
+    //     ),
+    //   },
+    //   errorImage: "images/man.jpg", // ✅ Add image to field
+    // },
+
+    // email: {
+    //   type: "email",
+    //   label: "Email",
+    //   rules: {
+    //     required: true,
+    //     requiredMessage: "Email is required",
+    //     validate: (value) => {
+    //       if (!value) return true;
+
+    //       // ❌ No @ symbol
+    //       if (!value.includes("@")) {
+    //         return (
+    //           <div style={{ fontSize: "12px", color: "#f59e0b" }}>
+    //             Email must contain{" "}
+    //             <span style={{ color: "#ef4444", fontWeight: 600 }}>@</span>{" "}
+    //             symbol
+    //           </div>
+    //         );
+    //       }
+
+    //       // ❌ Block specific email
+    //       if (value === "admin@gmail.com") {
+    //         return (
+    //           <div style={{ fontSize: "12px", color: "#ef4444" }}>
+    //             <span style={{ fontWeight: 600 }}>{value}</span> is not
+    //             available and not safe
+    //           </div>
+    //         );
+    //       }
+
+    //       // ❌ Invalid email format
+    //       if (!/\S+@\S+\.\S+/.test(value)) {
+    //         return (
+    //           <div style={{ fontSize: "12px", color: "#f97316" }}>
+    //             Please enter a valid email format
+    //           </div>
+    //         );
+    //       }
+
+    //       return true;
+    //     },
+    //   },
+    //   errorIcon: (
+    //     <svg viewBox="0 0 24 24">
+    //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+    //     </svg>
+    //   ),
+    // },
+
+    // phone: {
+    //   type: "text",
+    //   label: "Phone",
+    //   rules: {
+    //     required: true,
+    //     pattern: /^[0-9]{10}$/,
+    //     patternMessage: "Phone must be 10 digits",
+    //   },
+    //   errorIcon: (
+    //     <svg viewBox="0 0 24 24">
+    //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+    //     </svg>
+    //   ),
+    // },
+
+    // customField: {
+    //   type: "text",
+    //   label: "Custom Field",
+    //   rules: {
+    //     required: true,
+    //     validate: (value) =>
+    //       value !== "admin" || (
+    //         <div style={{ color: "red", fontSize: "12px" }}>
+    //           <span style={{ color: "orange", fontWeight: "1200" }}>Admin</span>{" "}
+    //           is not allowed
+    //         </div>
+    //       ),
+    //   },
+    //   errorIcon: (
+    //     <svg viewBox="0 0 24 24">
+    //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+    //     </svg>
+    //   ),
+    // },
+
+    // country: {
+    //   type: "select",
+    //   label: "Country",
+    //   multiSelect: true, // ✅ enables multi select
+    //   options: [
+    //     { label: "India", value: "india" },
+    //     { label: "USA", value: "usa" },
+    //     { label: "Canada", value: "canada" },
+    //   ],
+    //   rules: {
+    //     required: true,
+    //     requiredMessage: "Please select a country",
+    //   },
+    //   errorIcon: (
+    //     <svg viewBox="0 0 24 24">
+    //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+    //     </svg>
+    //   ),
+    // },
+
+
   },
 };
 
@@ -1216,4 +1218,138 @@ export const formSchemaThree = {
       ),
     },
   },
+};
+
+export const examSchema = {
+  steps: [
+    // =========================
+    // STEP 1 - HTML + CSS
+    // =========================
+    {
+      title: "HTML & CSS Basics",
+      fields: {
+        q1: {
+          type: "radio",
+          label: "1. What does HTML stand for?",
+          options: [
+            { label: "Hyper Text Markup Language", value: "a" },
+            { label: "High Text Machine Language", value: "b" },
+            { label: "Hyperloop Machine Language", value: "c" },
+          ],
+          rules: {
+            required: true,
+            requiredMessage: "Please select an answer",
+          },
+          correctAnswer: "a",
+        },
+
+        q2: {
+          type: "checkbox",
+          label: "2. Which are CSS properties?",
+          options: [
+            { label: "color", value: "color" },
+            { label: "font-size", value: "font-size" },
+            { label: "onclick", value: "onclick" },
+          ],
+          rules: {
+            required: true,
+            requiredMessage: "Select at least one",
+          },
+          correctAnswer: ["color", "font-size"],
+        },
+      },
+    },
+
+    // =========================
+    // STEP 2 - JAVASCRIPT
+    // =========================
+    {
+      title: "JavaScript Basics",
+      fields: {
+        q3: {
+          type: "radio",
+          label: "3. Which company developed JavaScript?",
+          options: [
+            { label: "Microsoft", value: "ms" },
+            { label: "Netscape", value: "netscape" },
+            { label: "Google", value: "google" },
+          ],
+          rules: {
+            required: true,
+          },
+          correctAnswer: "netscape",
+        },
+
+        q4: {
+          type: "text",
+          label: "4. What is the output of 2 + '2' in JS?",
+          rules: {
+            required: true,
+          },
+          correctAnswer: "22",
+        },
+      },
+    },
+
+    // =========================
+    // STEP 3 - REACT
+    // =========================
+    {
+      title: "React Basics",
+      fields: {
+        q5: {
+          type: "radio",
+          label: "5. React is mainly used for?",
+          options: [
+            { label: "Database", value: "db" },
+            { label: "UI Development", value: "ui" },
+            { label: "Backend API", value: "api" },
+          ],
+          rules: {
+            required: true,
+          },
+          correctAnswer: "ui",
+        },
+
+        q6: {
+          type: "checkbox",
+          label: "6. Which are React features?",
+          options: [
+            { label: "Virtual DOM", value: "vdom" },
+            { label: "Two-way binding", value: "twoway" },
+            { label: "Component-based", value: "component" },
+          ],
+          correctAnswer: ["vdom", "component"],
+        },
+      },
+    },
+
+    // =========================
+    // STEP 4 - CODING QUESTION
+    // =========================
+    {
+      title: "Coding & Logic",
+      fields: {
+        q7: {
+          type: "text",
+          label: "7. Reverse string of 'hello'?",
+          rules: {
+            required: true,
+          },
+          correctAnswer: "olleh",
+        },
+
+        q8: {
+          type: "radio",
+          label: "8. Which is a JavaScript framework?",
+          options: [
+            { label: "Laravel", value: "laravel" },
+            { label: "Django", value: "django" },
+            { label: "React", value: "react" },
+          ],
+          correctAnswer: "react",
+        },
+      },
+    },
+  ],
 };

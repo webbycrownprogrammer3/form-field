@@ -297,7 +297,7 @@ export default function ExamplesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-white dark:from-black dark:via-blue-900/20 dark:to-black">
-      <Navigation />
+      {/* <Navigation /> */}
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
@@ -1962,7 +1962,7 @@ export default function Page() {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
 
       <style jsx>{`
         .animate-fadeIn {
