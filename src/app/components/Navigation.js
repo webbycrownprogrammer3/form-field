@@ -11,6 +11,7 @@ export default function Navigation() {
     { href: "/configuration", label: "Configuration" },
     { href: "/examples", label: "Examples" },
     { href: "/field-type", label: "Field-Type" },
+    { href: "/exam-form", label: "Exam-Form" },
   ];
 
   return (

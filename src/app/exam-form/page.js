@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { examSchema } from "@/utils/schema";
 import { Form, StepForm } from "field-validation";
+import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
 
 
 export default function Page() {
@@ -69,21 +71,25 @@ export default function Page() {
     };
 
     return (
-        <div style={{ padding: "200px" }}>
-            <h1>Form Test</h1>
+        <>
+            <Navigation />
+            <div style={{ padding: "200px" }}>
+                <h1>Form Test</h1>
 
-            {/* ✅ Normal Form */}
-            <StepForm
-                key="step-form-1"
-                schema={examSchema}
-                onSubmit={handleStepSubmit}
-                loading={stepLoading}
-                apiError={stepApiError}
-                percentageResult={true}
-                apiMode={true}   // ✅ NEW
-                answer={answer}              // ✅ NEW (API answers)
-            />
-        </div>
+                {/* ✅ Normal Form */}
+                <StepForm
+                    key="step-form-1"
+                    schema={examSchema}
+                    onSubmit={handleStepSubmit}
+                    loading={stepLoading}
+                    apiError={stepApiError}
+                    percentageResult={true}
+                    apiMode={true}   // ✅ NEW
+                    answer={answer}              // ✅ NEW (API answers)
+                />
+            </div>
+            <Footer />
+        </>
     );
 }
 
