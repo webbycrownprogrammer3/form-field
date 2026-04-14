@@ -161,6 +161,44 @@ export const stepSchema = {
           ),
         },
 
+        beardStyle: {
+          type: "text",
+          label: "Beard Style",
+          showWhen: {
+            field: "gender",
+            value: "male",
+          },
+          rules: {
+            required: true,
+            requiredMessage: "BeardType is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+
+        makeupType: {
+          type: "text",
+          label: "Makeup Type",
+          showWhen: {
+            field: "gender",
+            value: "female",
+          },
+          rules: {
+            required: true,
+            requiredMessage: "MakeupType is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+
+
+
         hobbies: {
           type: "checkbox",
           label: "Hobbies",
@@ -658,6 +696,41 @@ export const formSchema = {
       ),
     },
 
+    password: {
+      type: "password",
+      label: "Password",
+
+      rules: {
+        required: true,
+        requiredMessage: "Password is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    confirmPassword: {
+      type: "password",
+      label: "Confirm Password",
+      rules: {
+        required: true,
+        requiredMessage: "Confirm Password is required",
+        validate: (value, values) => {
+          if (value !== values?.password) {
+            return "Passwords do not match";
+          }
+          return true;
+        },
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
     gender: {
       type: "radio",
       label: "Gender",
@@ -676,16 +749,16 @@ export const formSchema = {
       ),
     },
 
-    hobbies: {
-      type: "checkbox",
-      label: "Hobbies",
-      options: [
-        { label: "Cricket", value: "cricket" },
-        { label: "Music", value: "music" },
-      ],
+    beardStyle: {
+      type: "text",
+      label: "Beard Style",
+      showWhen: {
+        field: "gender",
+        value: "male",
+      },
       rules: {
         required: true,
-        requiredMessage: "Hobbies is required",
+        requiredMessage: "BeardType is required",
       },
       errorIcon: (
         <svg viewBox="0 0 24 24">
@@ -694,13 +767,16 @@ export const formSchema = {
       ),
     },
 
-    resume: {
-      type: "file",
-      label: "Upload Resume",
-      accept: ".pdf,.doc",
+    makeupType: {
+      type: "text",
+      label: "Makeup Type",
+      showWhen: {
+        field: "gender",
+        value: "female",
+      },
       rules: {
         required: true,
-        requiredMessage: "File is required",
+        requiredMessage: "MakeupType is required",
       },
       errorIcon: (
         <svg viewBox="0 0 24 24">
@@ -708,10 +784,44 @@ export const formSchema = {
         </svg>
       ),
     },
+
+    // hobbies: {
+    //   type: "checkbox",
+    //   label: "Hobbies",
+    //   options: [
+    //     { label: "Cricket", value: "cricket" },
+    //     { label: "Music", value: "music" },
+    //   ],
+    //   rules: {
+    //     required: true,
+    //     requiredMessage: "Hobbies is required",
+    //   },
+    //   errorIcon: (
+    //     <svg viewBox="0 0 24 24">
+    //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+    //     </svg>
+    //   ),
+    // },
+
+    // resume: {
+    //   type: "file",
+    //   label: "Upload Resume",
+    //   accept: ".pdf,.doc",
+    //   rules: {
+    //     required: true,
+    //     requiredMessage: "File is required",
+    //   },
+    //   errorIcon: (
+    //     <svg viewBox="0 0 24 24">
+    //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+    //     </svg>
+    //   ),
+    // },
 
     profileImage: {
       type: "dropzone",
       label: "Upload Profile Image",
+      multiple: true,
       accept: "image/*",
       rules: {
         required: true,
@@ -1228,6 +1338,10 @@ export const examSchema = {
     {
       title: "HTML & CSS Basics",
       fields: {
+        userId: {
+          type: "hidden",
+          value: 2, // dynamic user id (can come from auth)
+        },
         q1: {
           type: "radio",
           label: "1. What does HTML stand for?",
@@ -1266,6 +1380,10 @@ export const examSchema = {
     {
       title: "JavaScript Basics",
       fields: {
+        PageId: {
+          type: "hidden",
+          value: 20, // dynamic user id (can come from auth)
+        },
         q3: {
           type: "radio",
           label: "3. Which company developed JavaScript?",

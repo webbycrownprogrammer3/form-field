@@ -168,6 +168,33 @@ export default function ConfigurationPage() {
                   </td>
                 </tr>
 
+                <tr>
+                  <td className="p-3 font-mono text-blue-600 dark:text-blue-400">percentageResult</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">boolean</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">false</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">
+                    If true, shows exam result with total questions, correct/wrong answers, score, percentage, and answer review. If false, it behaves like normal form submission.
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono text-blue-600 dark:text-blue-400">apiMode</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">boolean</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">false</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">
+                    If true, answers are matched using external API data instead of schema correctAnswer. Useful when answers come dynamically from backend.
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono text-blue-600 dark:text-blue-400">answer</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">array</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">[]</td>
+                  <td className="p-3 text-gray-600 dark:text-gray-400">
+                    Contains correct answers from API in array format (e.g. [{`{ key: "q1", answer: "a" }`}]). Used when apiMode is true to match user answers with API answers.
+                  </td>
+                </tr>
+
               </tbody>
             </table>
           </div>

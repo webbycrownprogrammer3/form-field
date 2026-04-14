@@ -57,6 +57,17 @@ export default function Page() {
         }
     };
 
+    const answer = {
+        q1: "a",
+        q2: ["color", "font-size"],
+        q3: "netscape",
+        q4: "22",
+        q5: "ui",
+        q6: ["vdom", "component"],
+        q7: "ollehs",
+        q8: "react",
+    };
+
     return (
         <div style={{ padding: "200px" }}>
             <h1>Form Test</h1>
@@ -69,6 +80,8 @@ export default function Page() {
                 loading={stepLoading}
                 apiError={stepApiError}
                 percentageResult={true}
+                apiMode={true}   // ✅ NEW
+                answer={answer}              // ✅ NEW (API answers)
             />
         </div>
     );
