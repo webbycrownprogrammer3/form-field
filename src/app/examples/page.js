@@ -4,9 +4,11 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { Form, StepForm } from "field-validation";
 import {
+  countrySchema,
   formSchema,
   formSchemaThree,
   formSchemaTwo,
+  genderSchema,
   stepSchema,
   stepSchemaThree,
   stepSchemaTwo,
@@ -218,7 +220,8 @@ export default function ExamplesPage() {
         return (
           <Form
             key="form-1"
-            schema={formSchema}
+            // schema={formSchema}
+            schema={countrySchema}
             onSubmit={handleFormSubmit}
             loading={formLoading}
             apiError={formApiError}
@@ -229,20 +232,21 @@ export default function ExamplesPage() {
         return (
           <Form
             key="form-2"
-            schema={formSchemaTwo}
+            // schema={formSchema}
+            schema={genderSchema}
             onSubmit={handleFormSubmitTwo}
             loading={formLoadingTwo}
             apiError={formApiErrorTwo}
             errorType={"beforField"}
             type={"layoutTwo"}
-            gridType={3}
+            gridType={1}
           />
         );
       case "form-layout-three":
         return (
           <Form
             key="form-3"
-            schema={formSchemaThree}
+            schema={formSchema}
             onSubmit={handleFormSubmitThree}
             loading={formLoadingThree}
             apiError={formApiErrorThree}

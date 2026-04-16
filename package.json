@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@webbycrown/react-advanced-richtext-editor": "^1.0.1-0",
-    "field-validation": "file:./field-validation-1.0.0.tgz",
     "next": "^16.0.7",
     "react": "19.2.0",
     "react-dom": "19.2.0"
