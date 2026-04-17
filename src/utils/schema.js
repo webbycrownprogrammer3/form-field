@@ -1,4 +1,23 @@
 export const stepSchema = {
+  navigation: {
+    nextLabel: "Continue To Next→",
+    prevLabel: "← Back",
+
+    onNext: () => {
+      return {
+        error: "Next Is BLocked",
+        next: true
+      }
+    },
+
+    onPrev: () => {
+      return {
+        error: "Previous is blocked by user 🚫",
+        prev: false
+      };
+    },
+  },
+
   steps: [
     // ✅ Step 1: Basic Info
     {
@@ -7,10 +26,10 @@ export const stepSchema = {
         name: {
           type: "text",
           label: "Name",
-          rules: {
-            required: true,
-            requiredMessage: "Name is required",
-          },
+          // rules: {
+          //   required: true,
+          //   requiredMessage: "Name is required",
+          // },
           // errorIcon: (
           //     <svg viewBox="0 0 24 24">
           //         <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
@@ -250,6 +269,25 @@ export const stepSchema = {
 };
 
 export const stepSchemaTwo = {
+
+  navigation: {
+    nextLabel: "Continue →",
+    prevLabel: "← Back",
+
+    onNext: () => {
+      return {
+        error: "Next is blocked by user 🚫",
+        next: false
+      }
+    },
+
+    onPrev: () => {
+      return {
+        error: "Previous is blocked by user 🚫",
+        prev: false
+      };
+    },
+  },
   steps: [
     // ✅ Step 1: Basic Info
     {
@@ -464,6 +502,24 @@ export const stepSchemaTwo = {
 };
 
 export const stepSchemaThree = {
+  navigation: {
+    nextLabel: "Continue →",
+    prevLabel: "← Back",
+
+    onNext: () => {
+      return {
+        error: "Next Is BLocked",
+        next: true
+      }
+    },
+
+    onPrev: () => {
+      return {
+        error: "Previous is blocked by user 🚫",
+        prev: false
+      };
+    },
+  },
   steps: [
     // ✅ Step 1: Basic Info
     {
@@ -472,10 +528,10 @@ export const stepSchemaThree = {
         name: {
           type: "text",
           label: "Name",
-          rules: {
-            required: true,
-            requiredMessage: "Name is required",
-          },
+          // rules: {
+          //   required: true,
+          //   requiredMessage: "Name is required",
+          // },
           // 🔥 pass custom SVG
           errorIcon: (
             <svg viewBox="0 0 24 24">
