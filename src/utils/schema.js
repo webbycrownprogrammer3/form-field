@@ -2396,11 +2396,266 @@ export const genderSchema = {
   },
 };
 
+// export const countrySchema = {
+//   fields: {
+//     // =========================
+//     // 🌍 CONTINENT
+//     // =========================
+//     continent: {
+//       type: "select",
+//       label: "Continent",
+//       options: [
+//         { label: "Asia", value: "asia" },
+//         { label: "Europe", value: "europe" },
+//       ],
+//       rules: {
+//         required: true,
+//         requiredMessage: "Continent is required",
+//       },
+//     },
+
+//     // =========================
+//     // 🌍 COUNTRY (ASIA)
+//     // =========================
+//     countryAsia: {
+//       type: "select",
+//       label: "Country",
+//       showWhen: { field: "continent", value: "asia" },
+//       options: [
+//         { label: "India", value: "india" },
+//         { label: "UAE", value: "uae" },
+//       ],
+//       rules: { required: true },
+//     },
+
+//     // =========================
+//     // 🌍 COUNTRY (EUROPE)
+//     // =========================
+//     countryEurope: {
+//       type: "select",
+//       label: "Country",
+//       showWhen: { field: "continent", value: "europe" },
+//       options: [
+//         { label: "Germany", value: "germany" },
+//         { label: "France", value: "france" },
+//       ],
+//       rules: { required: true },
+//     },
+
+//     // =========================
+//     // 🏙️ STATE (INDIA)
+//     // =========================
+//     stateIndia: {
+//       type: "select",
+//       label: "State",
+//       showWhen: { field: "countryAsia", value: "india" },
+//       options: [
+//         { label: "Gujarat", value: "gujarat" },
+//         { label: "Maharashtra", value: "maharashtra" },
+//       ],
+//       rules: { required: true },
+//     },
+
+//     // =========================
+//     // 🏙️ STATE (UAE)
+//     // =========================
+//     stateUAE: {
+//       type: "select",
+//       label: "State",
+//       showWhen: { field: "countryAsia", value: "uae" },
+//       options: [
+//         { label: "Dubai", value: "dubai" },
+//         { label: "Abu Dhabi", value: "abudhabi" },
+//       ],
+//     },
+
+//     // =========================
+//     // 🏙️ STATE (GERMANY)
+//     // =========================
+//     stateGermany: {
+//       type: "select",
+//       label: "State",
+//       showWhen: { field: "countryEurope", value: "germany" },
+//       options: [
+//         { label: "Bavaria", value: "bavaria" },
+//         { label: "Berlin", value: "berlin" },
+//       ],
+//     },
+
+//     // =========================
+//     // 🏙️ CITY (GUJARAT)
+//     // =========================
+//     cityGujarat: {
+//       type: "select",
+//       label: "City",
+//       showWhen: { field: "stateIndia", value: "gujarat" },
+//       options: [
+//         { label: "Ahmedabad", value: "ahmedabad" },
+//         { label: "Rajkot", value: "rajkot" },
+//       ],
+//     },
+
+//     // =========================
+//     // 🏙️ CITY (MAHARASHTRA)
+//     // =========================
+//     cityMaharashtra: {
+//       type: "select",
+//       label: "City",
+//       showWhen: { field: "stateIndia", value: "maharashtra" },
+//       options: [
+//         { label: "Mumbai", value: "mumbai" },
+//         { label: "Pune", value: "pune" },
+//       ],
+//     },
+
+//     // =========================
+//     // 🏘️ AREA (RAJKOT)
+//     // =========================
+//     areaRajkot: {
+//       type: "select",
+//       label: "Area",
+//       showWhen: { field: "cityGujarat", value: "rajkot" },
+//       options: [
+//         { label: "Kalavad Road", value: "kalavad" },
+//         { label: "Yagnik Road", value: "yagnik" },
+//       ],
+//     },
+
+//     // =========================
+//     // 🏠 STREET (KALAVAD)
+//     // =========================
+//     streetKalavad: {
+//       type: "select",
+//       label: "Street",
+//       showWhen: { field: "areaRajkot", value: "kalavad" },
+//       options: [
+//         { label: "Street 1", value: "s1" },
+//         { label: "Street 2", value: "s2" },
+//       ],
+//     },
+//   },
+// };
+
+
+// export const countrySchema = {
+//   fields: {
+//     continent: {
+//       type: "select",
+//       label: "Continent",
+//       options: [
+//         { label: "Asia", value: "asia" },
+//         { label: "Europe", value: "europe" },
+//       ],
+//       rules: { required: true },
+//     },
+
+//     country: {
+//       type: "select",
+//       label: "Country",
+//       dependsOn: "continent",
+//       getOptions: async (values) => {
+//         if (!values.continent) return [];
+
+//         const map = {
+//           asia: [
+//             { label: "India", value: "india" },
+//             { label: "UAE", value: "uae" },
+//           ],
+//           europe: [
+//             { label: "Germany", value: "germany" },
+//             { label: "France", value: "france" },
+//           ],
+//         };
+
+//         return map[values.continent] || [];
+//       },
+//       rules: { required: true },
+//     },
+
+//     state: {
+//       type: "select",
+//       label: "State",
+//       dependsOn: "country",
+//       getOptions: async (values) => {
+//         const map = {
+//           india: [
+//             { label: "Gujarat", value: "gujarat" },
+//             { label: "Maharashtra", value: "maharashtra" },
+//           ],
+//           uae: [
+//             { label: "Dubai", value: "dubai" },
+//             { label: "Abu Dhabi", value: "abudhabi" },
+//           ],
+//           germany: [
+//             { label: "Bavaria", value: "bavaria" },
+//             { label: "Berlin", value: "berlin" },
+//           ],
+//         };
+
+//         return map[values.country] || [];
+//       },
+//     },
+
+//     city: {
+//       type: "select",
+//       label: "City",
+//       dependsOn: "state",
+//       getOptions: async (values) => {
+//         const map = {
+//           gujarat: [
+//             { label: "Ahmedabad", value: "ahmedabad" },
+//             { label: "Rajkot", value: "rajkot" },
+//           ],
+//           maharashtra: [
+//             { label: "Mumbai", value: "mumbai" },
+//             { label: "Pune", value: "pune" },
+//           ],
+//         };
+
+//         return map[values.state] || [];
+//       },
+//     },
+
+//     area: {
+//       type: "select",
+//       label: "Area",
+//       dependsOn: "city",
+//       getOptions: async (values) => {
+//         if (values.city === "rajkot") {
+//           return [
+//             { label: "Kalavad Road", value: "kalavad" },
+//             { label: "Yagnik Road", value: "yagnik" },
+//           ];
+//         }
+//         return [];
+//       },
+//     },
+
+//     street: {
+//       type: "select",
+//       label: "Street",
+//       dependsOn: "area",
+//       getOptions: async (values) => {
+//         if (values.area === "kalavad") {
+//           return [
+//             { label: "Street 1", value: "s1" },
+//             { label: "Street 2", value: "s2" },
+//           ];
+//         }
+//         return [];
+//       },
+//     },
+//   },
+// };
+
+
+// =========================
+// 🌐 NEW NATIVE dependsOn AND getOptions SCHEMA
+// =========================
+
+
 export const countrySchema = {
   fields: {
-    // =========================
-    // 🌍 CONTINENT
-    // =========================
     continent: {
       type: "select",
       label: "Continent",
@@ -2408,130 +2663,112 @@ export const countrySchema = {
         { label: "Asia", value: "asia" },
         { label: "Europe", value: "europe" },
       ],
-      rules: {
-        required: true,
-        requiredMessage: "Continent is required",
+      rules: { required: true },
+    },
+
+    country: {
+      type: "select",
+      label: "Country",
+      // 👇 NATIVE DEPENDENCY INJECTION
+      dependsOn: "continent",
+      getOptions: async (values) => {
+        if (!values.continent) return [];
+
+        try {
+          // Fetch countries dynamically based on the continent chosen using the RestCountries API
+          const response = await fetch(`https://restcountries.com/v3.1/region/${values.continent}?fields=name`);
+          const data = await response.json();
+
+          // Transform and sort data alphabetically
+          return data
+            .map((country) => ({
+              label: country.name.common,
+              value: country.name.common.toLowerCase().replace(/\s+/g, ""), // e.g. "India" -> "india"
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label));
+
+        } catch (error) {
+          console.error("Failed to fetch countries", error);
+          return [];
+        }
+      },
+      rules: { required: true },
+    },
+
+    state: {
+      type: "select",
+      label: "State",
+      dependsOn: "country",
+      getOptions: async (values) => {
+        const map = {
+          india: [
+            { label: "Gujarat", value: "gujarat" },
+            { label: "Maharashtra", value: "maharashtra" },
+          ],
+          uae: [
+            { label: "Dubai", value: "dubai" },
+            { label: "Abu Dhabi", value: "abudhabi" },
+          ],
+          germany: [
+            { label: "Bavaria", value: "bavaria" },
+            { label: "Berlin", value: "berlin" },
+          ],
+        };
+
+        return map[values.country] || [];
       },
     },
 
-    // =========================
-    // 🌍 COUNTRY (ASIA)
-    // =========================
-    countryAsia: {
-      type: "select",
-      label: "Country",
-      showWhen: { field: "continent", value: "asia" },
-      options: [
-        { label: "India", value: "india" },
-        { label: "UAE", value: "uae" },
-      ],
-      rules: { required: true },
-    },
-
-    // =========================
-    // 🌍 COUNTRY (EUROPE)
-    // =========================
-    countryEurope: {
-      type: "select",
-      label: "Country",
-      showWhen: { field: "continent", value: "europe" },
-      options: [
-        { label: "Germany", value: "germany" },
-        { label: "France", value: "france" },
-      ],
-      rules: { required: true },
-    },
-
-    // =========================
-    // 🏙️ STATE (INDIA)
-    // =========================
-    stateIndia: {
-      type: "select",
-      label: "State",
-      showWhen: { field: "countryAsia", value: "india" },
-      options: [
-        { label: "Gujarat", value: "gujarat" },
-        { label: "Maharashtra", value: "maharashtra" },
-      ],
-      rules: { required: true },
-    },
-
-    // =========================
-    // 🏙️ STATE (UAE)
-    // =========================
-    stateUAE: {
-      type: "select",
-      label: "State",
-      showWhen: { field: "countryAsia", value: "uae" },
-      options: [
-        { label: "Dubai", value: "dubai" },
-        { label: "Abu Dhabi", value: "abudhabi" },
-      ],
-    },
-
-    // =========================
-    // 🏙️ STATE (GERMANY)
-    // =========================
-    stateGermany: {
-      type: "select",
-      label: "State",
-      showWhen: { field: "countryEurope", value: "germany" },
-      options: [
-        { label: "Bavaria", value: "bavaria" },
-        { label: "Berlin", value: "berlin" },
-      ],
-    },
-
-    // =========================
-    // 🏙️ CITY (GUJARAT)
-    // =========================
-    cityGujarat: {
+    city: {
       type: "select",
       label: "City",
-      showWhen: { field: "stateIndia", value: "gujarat" },
-      options: [
-        { label: "Ahmedabad", value: "ahmedabad" },
-        { label: "Rajkot", value: "rajkot" },
-      ],
+      dependsOn: "state",
+      getOptions: async (values) => {
+        const map = {
+          gujarat: [
+            { label: "Ahmedabad", value: "ahmedabad" },
+            { label: "Rajkot", value: "rajkot" },
+          ],
+          maharashtra: [
+            { label: "Mumbai", value: "mumbai" },
+            { label: "Pune", value: "pune" },
+          ],
+        };
+
+        return map[values.state] || [];
+      },
+      rules: { required: true },
     },
 
-    // =========================
-    // 🏙️ CITY (MAHARASHTRA)
-    // =========================
-    cityMaharashtra: {
-      type: "select",
-      label: "City",
-      showWhen: { field: "stateIndia", value: "maharashtra" },
-      options: [
-        { label: "Mumbai", value: "mumbai" },
-        { label: "Pune", value: "pune" },
-      ],
-    },
-
-    // =========================
-    // 🏘️ AREA (RAJKOT)
-    // =========================
-    areaRajkot: {
+    area: {
       type: "select",
       label: "Area",
-      showWhen: { field: "cityGujarat", value: "rajkot" },
-      options: [
-        { label: "Kalavad Road", value: "kalavad" },
-        { label: "Yagnik Road", value: "yagnik" },
-      ],
+      dependsOn: "city",
+      getOptions: async (values) => {
+        if (values.city === "rajkot") {
+          return [
+            { label: "Kalavad Road", value: "kalavad" },
+            { label: "Yagnik Road", value: "yagnik" },
+          ];
+        }
+        return [];
+      },
     },
 
-    // =========================
-    // 🏠 STREET (KALAVAD)
-    // =========================
-    streetKalavad: {
+    street: {
       type: "select",
       label: "Street",
-      showWhen: { field: "areaRajkot", value: "kalavad" },
-      options: [
-        { label: "Street 1", value: "s1" },
-        { label: "Street 2", value: "s2" },
-      ],
+      dependsOn: "area",
+      getOptions: async (values) => {
+        if (values.area === "kalavad") {
+          return [
+            { label: "Street 1", value: "s1" },
+            { label: "Street 2", value: "s2" },
+          ];
+        }
+        return [];
+      },
     },
   },
 };
+
