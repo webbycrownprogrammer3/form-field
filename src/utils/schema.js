@@ -678,852 +678,332 @@ export const stepSchemaThree = {
   ],
 };
 
-// export const formSchema = {
-//   fields: {
-
-//     infoBlock: {
-//       type: "content",
-//       content: (
-//         <div className="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 space-y-4">
-
-//           <h2 className="text-xl font-semibold text-blue-600">
-//             About This Form
-//           </h2>
-
-//           <p className="text-sm text-gray-600 dark:text-gray-400">
-//             This form is designed to collect user information in a structured and user-friendly manner.
-//             It supports dynamic validation, conditional fields, and multi-step navigation to provide a seamless
-//             experience for both users and developers.
-//           </p>
-
-//           <p className="text-sm text-gray-600 dark:text-gray-400">
-//             The system is built using a schema-driven approach, which means all form fields, validation rules,
-//             and UI behavior are controlled through configuration rather than hardcoded components. This allows
-//             for flexible customization and easy scalability.
-//           </p>
-
-//           <div>
-//             <h3 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">
-//               Key Features
-//             </h3>
-
-//             <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-//               <li>Dynamic field rendering based on schema configuration</li>
-//               <li>Real-time validation with custom error messages</li>
-//               <li>Support for multiple field types (text, select, checkbox, file, etc.)</li>
-//               <li>Conditional fields using dependency logic (<code>showWhen</code>)</li>
-//               <li>Step-by-step form navigation with progress indicators</li>
-//               <li>Custom UI components like multi-select, password fields, and dropzones</li>
-//             </ul>
-//           </div>
-
-//           <div>
-//             <h3 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">
-//               How It Works
-//             </h3>
-
-//             <p className="text-sm text-gray-600 dark:text-gray-400">
-//               Each field in the form is defined inside a schema object, where you can specify its type, label,
-//               validation rules, and behavior. The form engine reads this schema and dynamically renders the UI
-//               accordingly. This makes it easy to update forms without modifying the core logic.
-//             </p>
-//           </div>
-
-//           <div>
-//             <h3 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">
-//               Usage
-//             </h3>
-
-//             <p className="text-sm text-gray-600 dark:text-gray-400">
-//               This form can be used for various purposes such as user registration, surveys, onboarding flows,
-//               and data collection systems. It is highly adaptable and can be extended with additional features
-//               like API integration, async validation, and role-based field visibility.
-//             </p>
-//           </div>
-
-//           <div className="p-3 rounded-lg bg-blue-50 text-blue-700 text-sm">
-//             💡 Tip: You can customize this form by updating the schema configuration. Add new fields, modify
-//             validation rules, or introduce conditional logic without changing the core form component.
-//           </div>
-
-//         </div>
-//       ),
-//     },
-//     name: {
-//       type: "text",
-//       label: "Name",
-//       rules: {
-//         required: true,
-//         requiredMessage: "Name is required",
-//       },
-//       errorIcon: (
-//         <svg viewBox="0 0 24 24">
-//           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//         </svg>
-//       ),
-//     },
-
-//     // infoBlock: {
-//     //   type: "content",
-//     //   content: (
-//     //     <div className="p-3 bg-blue-50 text-blue-600 rounded">
-//     //       This form is used for user registration.
-//     //     </div>
-//     //   ),
-//     // },
-
-//     password: {
-//       type: "password",
-//       label: "Password",
-
-//       rules: {
-//         required: true,
-//         requiredMessage: "Password is required",
-//       },
-//       errorIcon: (
-//         <svg viewBox="0 0 24 24">
-//           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//         </svg>
-//       ),
-//     },
-
-//     confirmPassword: {
-//       type: "password",
-//       label: "Confirm Password",
-//       rules: {
-//         required: true,
-//         requiredMessage: "Confirm Password is required",
-//         validate: (value, values) => {
-//           if (value !== values?.password) {
-//             return "Passwords do not match";
-//           }
-//           return true;
-//         },
-//       },
-//       errorIcon: (
-//         <svg viewBox="0 0 24 24">
-//           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//         </svg>
-//       ),
-//     },
-
-//     gender: {
-//       type: "radio",
-//       label: "Gender",
-//       options: [
-//         { label: "Male", value: "male" },
-//         { label: "Female", value: "female" },
-//       ],
-//       rules: {
-//         required: true,
-//         requiredMessage: "Gender is required",
-//       },
-//       errorIcon: (
-//         <svg viewBox="0 0 24 24">
-//           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//         </svg>
-//       ),
-//     },
-
-//     beardStyle: {
-//       type: "text",
-//       label: "Beard Style",
-//       showWhen: {
-//         field: "gender",
-//         value: "male",
-//       },
-//       rules: {
-//         required: true,
-//         requiredMessage: "BeardType is required",
-//       },
-//       errorIcon: (
-//         <svg viewBox="0 0 24 24">
-//           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//         </svg>
-//       ),
-//     },
-
-//     makeupType: {
-//       type: "text",
-//       label: "Makeup Type",
-//       showWhen: {
-//         field: "gender",
-//         value: "female",
-//       },
-//       rules: {
-//         required: true,
-//         requiredMessage: "MakeupType is required",
-//       },
-//       errorIcon: (
-//         <svg viewBox="0 0 24 24">
-//           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//         </svg>
-//       ),
-//     },
-
-//     // hobbies: {
-//     //   type: "checkbox",
-//     //   label: "Hobbies",
-//     //   options: [
-//     //     { label: "Cricket", value: "cricket" },
-//     //     { label: "Music", value: "music" },
-//     //   ],
-//     //   rules: {
-//     //     required: true,
-//     //     requiredMessage: "Hobbies is required",
-//     //   },
-//     //   errorIcon: (
-//     //     <svg viewBox="0 0 24 24">
-//     //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//     //     </svg>
-//     //   ),
-//     // },
-
-//     // resume: {
-//     //   type: "file",
-//     //   label: "Upload Resume",
-//     //   accept: ".pdf,.doc",
-//     //   rules: {
-//     //     required: true,
-//     //     requiredMessage: "File is required",
-//     //   },
-//     //   errorIcon: (
-//     //     <svg viewBox="0 0 24 24">
-//     //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//     //     </svg>
-//     //   ),
-//     // },
-
-//     profileImage: {
-//       type: "dropzone",
-//       label: "Upload Profile Image",
-//       multiple: true,
-//       accept: "image/*",
-//       rules: {
-//         required: true,
-//         requiredMessage: "Profile is required",
-//       },
-//       errorIcon: (
-//         <svg viewBox="0 0 24 24">
-//           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//         </svg>
-//       ),
-//     },
-
-//     // username: {
-//     //   type: "text",
-//     //   label: "Username",
-//     //   rules: {
-//     //     minLength: 3,
-//     //     requiredMessage: "Name is required",
-//     //   },
-//     //   errorIcon: (
-//     //     <svg viewBox="0 0 24 24">
-//     //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//     //     </svg>
-//     //   ),
-//     // },
-
-//     // bio: {
-//     //   type: "textarea",
-//     //   label: "Bio",
-//     //   rules: {
-//     //     required: true,
-//     //     maxLength: 10,
-//     //     requiredMessage: (
-//     //       <div style={{ fontSize: "12px", color: "#ef4444" }}>
-//     //         ❗{" "}
-//     //         <b>
-//     //           <span>Bio</span> is required
-//     //         </b>
-//     //       </div>
-//     //     ),
-//     //   },
-//     //   errorImage: "images/man.jpg", // ✅ Add image to field
-//     // },
-
-//     // email: {
-//     //   type: "email",
-//     //   label: "Email",
-//     //   rules: {
-//     //     required: true,
-//     //     requiredMessage: "Email is required",
-//     //     validate: (value) => {
-//     //       if (!value) return true;
-
-//     //       // ❌ No @ symbol
-//     //       if (!value.includes("@")) {
-//     //         return (
-//     //           <div style={{ fontSize: "12px", color: "#f59e0b" }}>
-//     //             Email must contain{" "}
-//     //             <span style={{ color: "#ef4444", fontWeight: 600 }}>@</span>{" "}
-//     //             symbol
-//     //           </div>
-//     //         );
-//     //       }
-
-//     //       // ❌ Block specific email
-//     //       if (value === "admin@gmail.com") {
-//     //         return (
-//     //           <div style={{ fontSize: "12px", color: "#ef4444" }}>
-//     //             <span style={{ fontWeight: 600 }}>{value}</span> is not
-//     //             available and not safe
-//     //           </div>
-//     //         );
-//     //       }
-
-//     //       // ❌ Invalid email format
-//     //       if (!/\S+@\S+\.\S+/.test(value)) {
-//     //         return (
-//     //           <div style={{ fontSize: "12px", color: "#f97316" }}>
-//     //             Please enter a valid email format
-//     //           </div>
-//     //         );
-//     //       }
-
-//     //       return true;
-//     //     },
-//     //   },
-//     //   errorIcon: (
-//     //     <svg viewBox="0 0 24 24">
-//     //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//     //     </svg>
-//     //   ),
-//     // },
-
-//     // phone: {
-//     //   type: "text",
-//     //   label: "Phone",
-//     //   rules: {
-//     //     required: true,
-//     //     pattern: /^[0-9]{10}$/,
-//     //     patternMessage: "Phone must be 10 digits",
-//     //   },
-//     //   errorIcon: (
-//     //     <svg viewBox="0 0 24 24">
-//     //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//     //     </svg>
-//     //   ),
-//     // },
-
-//     // customField: {
-//     //   type: "text",
-//     //   label: "Custom Field",
-//     //   rules: {
-//     //     required: true,
-//     //     validate: (value) =>
-//     //       value !== "admin" || (
-//     //         <div style={{ color: "red", fontSize: "12px" }}>
-//     //           <span style={{ color: "orange", fontWeight: "1200" }}>Admin</span>{" "}
-//     //           is not allowed
-//     //         </div>
-//     //       ),
-//     //   },
-//     //   errorIcon: (
-//     //     <svg viewBox="0 0 24 24">
-//     //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//     //     </svg>
-//     //   ),
-//     // },
-
-//     // country: {
-//     //   type: "select",
-//     //   label: "Country",
-//     //   multiSelect: true, // ✅ enables multi select
-//     //   options: [
-//     //     { label: "India", value: "india" },
-//     //     { label: "USA", value: "usa" },
-//     //     { label: "Canada", value: "canada" },
-//     //   ],
-//     //   rules: {
-//     //     required: true,
-//     //     requiredMessage: "Please select a country",
-//     //   },
-//     //   errorIcon: (
-//     //     <svg viewBox="0 0 24 24">
-//     //       <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-//     //     </svg>
-//     //   ),
-//     // },
-
-//   },
-// };
-
 export const formSchema = {
   fields: {
-    // =========================
-    // 🔹 GROUP: PERSONAL INFO
-    // =========================
-    personalInfo: {
-      type: "group",
-      label: "Personal Information",
-      description: "Enter your basic personal details",
-      grid: 2,
 
-      fields: {
-        // =========================
-        // 🌍 COUNTRY
-        // =========================
-        country: {
-          type: "select",
-          label: "Country",
-          options: [
-            { label: "India", value: "india" },
-            { label: "USA", value: "usa" },
-            { label: "UAE", value: "uae" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "Country is required",
-          },
-        },
+    infoBlock: {
+      type: "content",
+      content: (
+        <div className="p-5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 space-y-4">
 
-        // =========================
-        // 🏙️ STATE (INDIA)
-        // =========================
-        stateIndia: {
-          type: "select",
-          label: "State",
-          showWhen: { field: "country", value: "india" },
-          options: [
-            { label: "Gujarat", value: "gujarat" },
-            { label: "Maharashtra", value: "maharashtra" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "State is required",
-          },
-        },
+          <h2 className="text-xl font-semibold text-blue-600">
+            About This Form
+          </h2>
 
-        // =========================
-        // 🏙️ STATE (USA)
-        // =========================
-        stateUSA: {
-          type: "select",
-          label: "State",
-          showWhen: { field: "country", value: "usa" },
-          options: [
-            { label: "California", value: "california" },
-            { label: "Texas", value: "texas" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "State is required",
-          },
-        },
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            This form is designed to collect user information in a structured and user-friendly manner.
+            It supports dynamic validation, conditional fields, and multi-step navigation to provide a seamless
+            experience for both users and developers.
+          </p>
 
-        // =========================
-        // 🏙️ STATE (UAE)
-        // =========================
-        stateUAE: {
-          type: "select",
-          label: "State",
-          showWhen: { field: "country", value: "uae" },
-          options: [
-            { label: "Dubai", value: "dubai" },
-            { label: "Abu Dhabi", value: "abudhabi" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "State is required",
-          },
-        },
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            The system is built using a schema-driven approach, which means all form fields, validation rules,
+            and UI behavior are controlled through configuration rather than hardcoded components. This allows
+            for flexible customization and easy scalability.
+          </p>
 
-        // =========================
-        // 🏙️ CITY (INDIA)
-        // =========================
-        cityGujarat: {
-          type: "select",
-          label: "City",
-          showWhen: { field: "stateIndia", value: "gujarat" },
-          options: [
-            { label: "Ahmedabad", value: "ahmedabad" },
-            { label: "Rajkot", value: "rajkot" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "City is required",
-          },
-        },
+          <div>
+            <h3 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">
+              Key Features
+            </h3>
 
-        cityMaharashtra: {
-          type: "select",
-          label: "City",
-          showWhen: { field: "stateIndia", value: "maharashtra" },
-          options: [
-            { label: "Mumbai", value: "mumbai" },
-            { label: "Pune", value: "pune" },
-          ],
-        },
+            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <li>Dynamic field rendering based on schema configuration</li>
+              <li>Real-time validation with custom error messages</li>
+              <li>Support for multiple field types (text, select, checkbox, file, etc.)</li>
+              <li>Conditional fields using dependency logic (<code>showWhen</code>)</li>
+              <li>Step-by-step form navigation with progress indicators</li>
+              <li>Custom UI components like multi-select, password fields, and dropzones</li>
+            </ul>
+          </div>
 
-        // =========================
-        // 🏙️ CITY (USA)
-        // =========================
-        cityCalifornia: {
-          type: "select",
-          label: "City",
-          showWhen: { field: "stateUSA", value: "california" },
-          options: [
-            { label: "Los Angeles", value: "la" },
-            { label: "San Francisco", value: "sf" },
-          ],
-        },
+          <div>
+            <h3 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">
+              How It Works
+            </h3>
 
-        cityTexas: {
-          type: "select",
-          label: "City",
-          showWhen: { field: "stateUSA", value: "texas" },
-          options: [
-            { label: "Houston", value: "houston" },
-            { label: "Dallas", value: "dallas" },
-          ],
-        },
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Each field in the form is defined inside a schema object, where you can specify its type, label,
+              validation rules, and behavior. The form engine reads this schema and dynamically renders the UI
+              accordingly. This makes it easy to update forms without modifying the core logic.
+            </p>
+          </div>
 
-        // =========================
-        // 🏙️ CITY (UAE)
-        // =========================
-        cityDubai: {
-          type: "select",
-          label: "City",
-          showWhen: { field: "stateUAE", value: "dubai" },
-          options: [{ label: "Dubai City", value: "dubai_city" }],
-        },
+          <div>
+            <h3 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-1">
+              Usage
+            </h3>
 
-        cityAbuDhabi: {
-          type: "select",
-          label: "City",
-          showWhen: { field: "stateUAE", value: "abudhabi" },
-          options: [{ label: "Abu Dhabi City", value: "abudhabi_city" }],
-        },
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              This form can be used for various purposes such as user registration, surveys, onboarding flows,
+              and data collection systems. It is highly adaptable and can be extended with additional features
+              like API integration, async validation, and role-based field visibility.
+            </p>
+          </div>
 
-        // =========================
-        // 📍 AREA (INDIA - GUJARAT)
-        // =========================
-        areaAhmedabad: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityGujarat", value: "ahmedabad" },
-          options: [
-            { label: "Navrangpura", value: "navrangpura" },
-            { label: "SG Highway", value: "sghighway" },
-          ],
-        },
+          <div className="p-3 rounded-lg bg-blue-50 text-blue-700 text-sm">
+            💡 Tip: You can customize this form by updating the schema configuration. Add new fields, modify
+            validation rules, or introduce conditional logic without changing the core form component.
+          </div>
 
-        areaRajkot: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityGujarat", value: "rajkot" },
-          options: [
-            { label: "Kalavad Road", value: "kalavad" },
-            { label: "150 Feet Ring Road", value: "ringroad" },
-          ],
-        },
-
-        // =========================
-        // 📍 AREA (MAHARASHTRA)
-        // =========================
-        areaMumbai: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityMaharashtra", value: "mumbai" },
-          options: [
-            { label: "Andheri", value: "andheri" },
-            { label: "Bandra", value: "bandra" },
-          ],
-        },
-
-        areaPune: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityMaharashtra", value: "pune" },
-          options: [
-            { label: "Hinjewadi", value: "hinjewadi" },
-            { label: "Kothrud", value: "kothrud" },
-          ],
-        },
-
-        // =========================
-        // 📍 AREA (USA)
-        // =========================
-        areaLA: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityCalifornia", value: "la" },
-          options: [
-            { label: "Hollywood", value: "hollywood" },
-            { label: "Beverly Hills", value: "beverly" },
-          ],
-        },
-
-        areaSF: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityCalifornia", value: "sf" },
-          options: [
-            { label: "Downtown", value: "downtown" },
-            { label: "Mission", value: "mission" },
-          ],
-        },
-
-        // =========================
-        // 📍 AREA (UAE)
-        // =========================
-        areaDubaiCity: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityDubai", value: "dubai_city" },
-          options: [
-            { label: "Marina", value: "marina" },
-            { label: "Jumeirah", value: "jumeirah" },
-          ],
-        },
-
-        areaAbuDhabiCity: {
-          type: "select",
-          label: "Area",
-          showWhen: { field: "cityAbuDhabi", value: "abudhabi_city" },
-          options: [
-            { label: "Yas Island", value: "yas" },
-            { label: "Saadiyat", value: "saadiyat" },
-          ],
-        },
+        </div>
+      ),
+    },
+    name: {
+      type: "text",
+      label: "Name",
+      tooltip: "Name Is required.",
+      description: "This will be used on your official documents",
+      rules: {
+        required: true,
+        requiredMessage: "Name is required",
       },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
     },
 
-    countryInfo: {
-      type: "group",
-      label: "Country Information",
-      description: "Enter your basic personal details",
-      grid: 3,
+    password: {
+      type: "password",
+      label: "Password",
 
-      fields: {
-        // =========================
-        // 🌍 CONTINENT
-        // =========================
-        gender: {
-          type: "radio",
-          label: "Gender",
-          options: [
-            { label: "Male", value: "male" },
-            { label: "Female", value: "female" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "Gender is required",
-          },
-        },
-
-        // =========================
-        // 🧔 BEARD STYLE TYPE
-        // =========================
-        beardType: {
-          type: "radio",
-          label: "Beard Type",
-          showWhen: {
-            field: "gender",
-            value: "male",
-          },
-          options: [
-            { label: "Light Beard", value: "light" },
-            { label: "Heavy Beard", value: "heavy" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "Beard type is required",
-          },
-        },
-
-        // =========================
-        // 🧔 LIGHT BEARD OPTION
-        // =========================
-        lightBeardStyle: {
-          type: "text",
-          label: "Light Beard Style",
-          showWhen: {
-            field: "beardType",
-            value: "light",
-          },
-          rules: {
-            required: true,
-            requiredMessage: "Light beard style is required",
-          },
-        },
-
-        // =========================
-        // 🧔 HEAVY BEARD OPTION
-        // =========================
-        heavyBeardStyle: {
-          type: "text",
-          label: "Heavy Beard Style",
-          showWhen: {
-            field: "beardType",
-            value: "heavy",
-          },
-          rules: {
-            required: true,
-            requiredMessage: "Heavy beard style is required",
-          },
-        },
-
-        // =========================
-        // 💄 MAKEUP TYPE
-        // =========================
-        makeupCategory: {
-          type: "radio",
-          label: "Makeup Category",
-          showWhen: {
-            field: "gender",
-            value: "female",
-          },
-          options: [
-            { label: "Basic Makeup", value: "basic" },
-            { label: "Advanced Makeup", value: "advanced" },
-          ],
-          rules: {
-            required: true,
-            requiredMessage: "Makeup category is required",
-          },
-        },
-
-        // =========================
-        // 💄 BASIC MAKEUP
-        // =========================
-        basicMakeupType: {
-          type: "text",
-          label: "Basic Makeup Type",
-          showWhen: {
-            field: "makeupCategory",
-            value: "basic",
-          },
-          rules: {
-            required: true,
-            requiredMessage: "Basic makeup type is required",
-          },
-        },
-
-        // =========================
-        // 💄 ADVANCED MAKEUP
-        // =========================
-        advancedMakeupType: {
-          type: "text",
-          label: "Advanced Makeup Type",
-          showWhen: {
-            field: "makeupCategory",
-            value: "advanced",
-          },
-          rules: {
-            required: true,
-            requiredMessage: "Advanced makeup type is required",
-          },
-        },
+      rules: {
+        required: true,
+        requiredMessage: "Password is required",
       },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
     },
 
-    // =========================
-    // 🔹 NORMAL FIELD (OUTSIDE GROUP)
-    // =========================
+    confirmPassword: {
+      type: "password",
+      label: "Confirm Password",
+      rules: {
+        required: true,
+        requiredMessage: "Confirm Password is required",
+        validate: (value, values) => {
+          if (value !== values?.password) {
+            return "Passwords do not match";
+          }
+          return true;
+        },
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    gender: {
+      type: "radio",
+      label: "Gender",
+      options: [
+        { label: "Male", value: "male" },
+        { label: "Female", value: "female" },
+      ],
+      rules: {
+        required: true,
+        requiredMessage: "Gender is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    hobbies: {
+      type: "checkbox",
+      label: "Hobbies",
+      options: [
+        { label: "Cricket", value: "cricket" },
+        { label: "Music", value: "music" },
+      ],
+      rules: {
+        required: true,
+        requiredMessage: "Hobbies is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    resume: {
+      type: "file",
+      label: "Upload Resume",
+      accept: ".pdf,.doc",
+      rules: {
+        required: true,
+        requiredMessage: "File is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    profileImage: {
+      type: "dropzone",
+      label: "Upload Profile Image",
+      multiple: true,
+      accept: "image/*",
+      rules: {
+        required: true,
+        requiredMessage: "Profile is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    username: {
+      type: "text",
+      label: "Username",
+      rules: {
+        minLength: 3,
+        requiredMessage: "Name is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    bio: {
+      type: "textarea",
+      label: "Bio",
+      rules: {
+        required: true,
+        maxLength: 10,
+        requiredMessage: (
+          <div style={{ fontSize: "12px", color: "#ef4444" }}>
+            ❗{" "}
+            <b>
+              <span>Bio</span> is required
+            </b>
+          </div>
+        ),
+      },
+      errorImage: "images/man.jpg", // ✅ Add image to field
+    },
+
+    email: {
+      type: "email",
+      label: "Email",
+      rules: {
+        required: true,
+        requiredMessage: "Email is required",
+        validate: (value) => {
+          if (!value) return true;
+
+          // ❌ No @ symbol
+          if (!value.includes("@")) {
+            return (
+              <div style={{ fontSize: "12px", color: "#f59e0b" }}>
+                Email must contain{" "}
+                <span style={{ color: "#ef4444", fontWeight: 600 }}>@</span>{" "}
+                symbol
+              </div>
+            );
+          }
+
+          // ❌ Block specific email
+          if (value === "admin@gmail.com") {
+            return (
+              <div style={{ fontSize: "12px", color: "#ef4444" }}>
+                <span style={{ fontWeight: 600 }}>{value}</span> is not
+                available and not safe
+              </div>
+            );
+          }
+
+          // ❌ Invalid email format
+          if (!/\S+@\S+\.\S+/.test(value)) {
+            return (
+              <div style={{ fontSize: "12px", color: "#f97316" }}>
+                Please enter a valid email format
+              </div>
+            );
+          }
+
+          return true;
+        },
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    phone: {
+      type: "text",
+      label: "Phone",
+      rules: {
+        required: true,
+        pattern: /^[0-9]{10}$/,
+        patternMessage: "Phone must be 10 digits",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
 
     customField: {
       type: "text",
       label: "Custom Field",
-      placeholder: "Enter custom value",
       rules: {
         required: true,
-        requiredMessage: "Custome FIeld is required",
+        validate: (value) =>
+          value !== "admin" || (
+            <div style={{ color: "red", fontSize: "12px" }}>
+              <span style={{ color: "orange", fontWeight: "1200" }}>Admin</span>{" "}
+              is not allowed
+            </div>
+          ),
       },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    country: {
+      type: "select",
+      label: "Country",
+      multiSelect: true, // ✅ enables multi select
+      options: [
+        { label: "India", value: "india" },
+        { label: "USA", value: "usa" },
+        { label: "Canada", value: "canada" },
+      ],
+      rules: {
+        required: true,
+        requiredMessage: "Please select a country",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
     },
   },
 };
-
-// export const formSchema = {
-//   fields: {
-//     // =========================
-//     // 🧩 STEP 1: SELECT CATEGORY
-//     // =========================
-//     category: {
-//       type: "checkbox",
-//       label: "Select Category",
-//       options: [
-//         { label: "Frontend", value: "frontend" },
-//         { label: "Backend", value: "backend" },
-//       ],
-//       rules: {
-//         required: true,
-//         requiredMessage: "Please select at least one category",
-//       },
-//     },
-
-//     // =========================
-//     // 🎨 STEP 2: FRONTEND SKILLS
-//     // =========================
-//     frontendSkills: {
-//       type: "checkbox",
-//       label: "Frontend Skills",
-//       showWhen: {
-//         field: "category",
-//         includes: "frontend", // 🔥 NEW (array support)
-//       },
-//       options: [
-//         { label: "React", value: "react" },
-//         { label: "Vue", value: "vue" },
-//         { label: "Angular", value: "angular" },
-//       ],
-//       rules: {
-//         required: true,
-//         requiredMessage: "Select at least one frontend skill",
-//       },
-//     },
-
-//     // =========================
-//     // ⚙️ STEP 2: BACKEND SKILLS
-//     // =========================
-//     backendSkills: {
-//       type: "checkbox",
-//       label: "Backend Skills",
-//       showWhen: {
-//         field: "category",
-//         includes: "backend",
-//       },
-//       options: [
-//         { label: "Node.js", value: "node" },
-//         { label: "Python", value: "python" },
-//         { label: "PHP", value: "php" },
-//       ],
-//     },
-
-//     // =========================
-//     // 🚀 STEP 3: REACT TOOLS
-//     // =========================
-//     reactTools: {
-//       type: "checkbox",
-//       label: "React Tools",
-//       showWhen: {
-//         field: "frontendSkills",
-//         includes: "react",
-//       },
-//       options: [
-//         { label: "Next.js", value: "next" },
-//         { label: "Redux", value: "redux" },
-//       ],
-//     },
-
-//     // =========================
-//     // 🐍 STEP 3: PYTHON FRAMEWORKS
-//     // =========================
-//     pythonFrameworks: {
-//       type: "checkbox",
-//       label: "Python Frameworks",
-//       showWhen: {
-//         field: "backendSkills",
-//         includes: "python",
-//       },
-//       options: [
-//         { label: "Django", value: "django" },
-//         { label: "FastAPI", value: "fastapi" },
-//       ],
-//     },
-//   },
-// };
 
 export const formSchemaTwo = {
   fields: {
@@ -2395,264 +1875,6 @@ export const genderSchema = {
     },
   },
 };
-
-// export const countrySchema = {
-//   fields: {
-//     // =========================
-//     // 🌍 CONTINENT
-//     // =========================
-//     continent: {
-//       type: "select",
-//       label: "Continent",
-//       options: [
-//         { label: "Asia", value: "asia" },
-//         { label: "Europe", value: "europe" },
-//       ],
-//       rules: {
-//         required: true,
-//         requiredMessage: "Continent is required",
-//       },
-//     },
-
-//     // =========================
-//     // 🌍 COUNTRY (ASIA)
-//     // =========================
-//     countryAsia: {
-//       type: "select",
-//       label: "Country",
-//       showWhen: { field: "continent", value: "asia" },
-//       options: [
-//         { label: "India", value: "india" },
-//         { label: "UAE", value: "uae" },
-//       ],
-//       rules: { required: true },
-//     },
-
-//     // =========================
-//     // 🌍 COUNTRY (EUROPE)
-//     // =========================
-//     countryEurope: {
-//       type: "select",
-//       label: "Country",
-//       showWhen: { field: "continent", value: "europe" },
-//       options: [
-//         { label: "Germany", value: "germany" },
-//         { label: "France", value: "france" },
-//       ],
-//       rules: { required: true },
-//     },
-
-//     // =========================
-//     // 🏙️ STATE (INDIA)
-//     // =========================
-//     stateIndia: {
-//       type: "select",
-//       label: "State",
-//       showWhen: { field: "countryAsia", value: "india" },
-//       options: [
-//         { label: "Gujarat", value: "gujarat" },
-//         { label: "Maharashtra", value: "maharashtra" },
-//       ],
-//       rules: { required: true },
-//     },
-
-//     // =========================
-//     // 🏙️ STATE (UAE)
-//     // =========================
-//     stateUAE: {
-//       type: "select",
-//       label: "State",
-//       showWhen: { field: "countryAsia", value: "uae" },
-//       options: [
-//         { label: "Dubai", value: "dubai" },
-//         { label: "Abu Dhabi", value: "abudhabi" },
-//       ],
-//     },
-
-//     // =========================
-//     // 🏙️ STATE (GERMANY)
-//     // =========================
-//     stateGermany: {
-//       type: "select",
-//       label: "State",
-//       showWhen: { field: "countryEurope", value: "germany" },
-//       options: [
-//         { label: "Bavaria", value: "bavaria" },
-//         { label: "Berlin", value: "berlin" },
-//       ],
-//     },
-
-//     // =========================
-//     // 🏙️ CITY (GUJARAT)
-//     // =========================
-//     cityGujarat: {
-//       type: "select",
-//       label: "City",
-//       showWhen: { field: "stateIndia", value: "gujarat" },
-//       options: [
-//         { label: "Ahmedabad", value: "ahmedabad" },
-//         { label: "Rajkot", value: "rajkot" },
-//       ],
-//     },
-
-//     // =========================
-//     // 🏙️ CITY (MAHARASHTRA)
-//     // =========================
-//     cityMaharashtra: {
-//       type: "select",
-//       label: "City",
-//       showWhen: { field: "stateIndia", value: "maharashtra" },
-//       options: [
-//         { label: "Mumbai", value: "mumbai" },
-//         { label: "Pune", value: "pune" },
-//       ],
-//     },
-
-//     // =========================
-//     // 🏘️ AREA (RAJKOT)
-//     // =========================
-//     areaRajkot: {
-//       type: "select",
-//       label: "Area",
-//       showWhen: { field: "cityGujarat", value: "rajkot" },
-//       options: [
-//         { label: "Kalavad Road", value: "kalavad" },
-//         { label: "Yagnik Road", value: "yagnik" },
-//       ],
-//     },
-
-//     // =========================
-//     // 🏠 STREET (KALAVAD)
-//     // =========================
-//     streetKalavad: {
-//       type: "select",
-//       label: "Street",
-//       showWhen: { field: "areaRajkot", value: "kalavad" },
-//       options: [
-//         { label: "Street 1", value: "s1" },
-//         { label: "Street 2", value: "s2" },
-//       ],
-//     },
-//   },
-// };
-
-
-// export const countrySchema = {
-//   fields: {
-//     continent: {
-//       type: "select",
-//       label: "Continent",
-//       options: [
-//         { label: "Asia", value: "asia" },
-//         { label: "Europe", value: "europe" },
-//       ],
-//       rules: { required: true },
-//     },
-
-//     country: {
-//       type: "select",
-//       label: "Country",
-//       dependsOn: "continent",
-//       getOptions: async (values) => {
-//         if (!values.continent) return [];
-
-//         const map = {
-//           asia: [
-//             { label: "India", value: "india" },
-//             { label: "UAE", value: "uae" },
-//           ],
-//           europe: [
-//             { label: "Germany", value: "germany" },
-//             { label: "France", value: "france" },
-//           ],
-//         };
-
-//         return map[values.continent] || [];
-//       },
-//       rules: { required: true },
-//     },
-
-//     state: {
-//       type: "select",
-//       label: "State",
-//       dependsOn: "country",
-//       getOptions: async (values) => {
-//         const map = {
-//           india: [
-//             { label: "Gujarat", value: "gujarat" },
-//             { label: "Maharashtra", value: "maharashtra" },
-//           ],
-//           uae: [
-//             { label: "Dubai", value: "dubai" },
-//             { label: "Abu Dhabi", value: "abudhabi" },
-//           ],
-//           germany: [
-//             { label: "Bavaria", value: "bavaria" },
-//             { label: "Berlin", value: "berlin" },
-//           ],
-//         };
-
-//         return map[values.country] || [];
-//       },
-//     },
-
-//     city: {
-//       type: "select",
-//       label: "City",
-//       dependsOn: "state",
-//       getOptions: async (values) => {
-//         const map = {
-//           gujarat: [
-//             { label: "Ahmedabad", value: "ahmedabad" },
-//             { label: "Rajkot", value: "rajkot" },
-//           ],
-//           maharashtra: [
-//             { label: "Mumbai", value: "mumbai" },
-//             { label: "Pune", value: "pune" },
-//           ],
-//         };
-
-//         return map[values.state] || [];
-//       },
-//     },
-
-//     area: {
-//       type: "select",
-//       label: "Area",
-//       dependsOn: "city",
-//       getOptions: async (values) => {
-//         if (values.city === "rajkot") {
-//           return [
-//             { label: "Kalavad Road", value: "kalavad" },
-//             { label: "Yagnik Road", value: "yagnik" },
-//           ];
-//         }
-//         return [];
-//       },
-//     },
-
-//     street: {
-//       type: "select",
-//       label: "Street",
-//       dependsOn: "area",
-//       getOptions: async (values) => {
-//         if (values.area === "kalavad") {
-//           return [
-//             { label: "Street 1", value: "s1" },
-//             { label: "Street 2", value: "s2" },
-//           ];
-//         }
-//         return [];
-//       },
-//     },
-//   },
-// };
-
-
-// =========================
-// 🌐 NEW NATIVE dependsOn AND getOptions SCHEMA
-// =========================
-
 
 export const countrySchema = {
   fields: {

@@ -69,11 +69,7 @@ export default function Footer() {
                     Examples
                   </Link>
                 </li>
-                <li>
-                  <Link href="/exam-form" className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-block  duration-200">
-                    Exam-Form
-                  </Link>
-                </li>
+
               </ul>
             </div>
 

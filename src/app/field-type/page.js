@@ -2913,6 +2913,280 @@ export default function FieldTypePage() {
 
                     </div>
 
+                    <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+                        <h2 className="text-2xl font-bold text-blue-600 mb-2">
+                            Country Selection (Dynamic Dependent Fields with API)
+                        </h2>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                            A multi-level dependent field system where each field dynamically updates based on the previous selection. It supports both static and API-driven data using <code>dependsOn</code> and <code>getOptions</code>.
+                        </p>
+                    </div>
+
+                    <div className="p-6 space-y-6">
+
+                        {/* Field Name */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                                Fields: <span className="text-blue-500">continent → country → state → city → area → street</span>
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                A hierarchical structure where each field depends on the previous field’s value.
+                            </p>
+                        </div>
+
+                        {/* Description */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                                Description
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                This schema demonstrates dynamic form rendering using dependency-based fields. The <code>country</code> field fetches data from an external API based on the selected continent, while other fields use conditional logic to populate options dynamically.
+                            </p>
+                        </div>
+
+                        {/* Schema Block */}
+                        <div className="bg-gray-900 dark:bg-gray-950 rounded-xl overflow-hidden">
+                            <div className="flex justify-between px-4 py-2 bg-gray-800 text-gray-300 text-xs">
+                                <span>schema.js</span>
+                                <button
+                                    onClick={() => handleCopy(`// countrySchema code`, 30)}
+                                    className="text-blue-400"
+                                >
+                                    {copiedIndex === 30 ? "Copied!" : "Copy"}
+                                </button>
+                            </div>
+
+                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">
+                                {`country: {
+  type: "select",
+  label: "Country",
+  dependsOn: "continent",
+  getOptions: async (values) => {
+    const res = await fetch(\`https://restcountries.com/v3.1/region/\${values.continent}?fields=name\`);
+    const data = await res.json();
+
+    return data.map(c => ({
+      label: c.name.common,
+      value: c.name.common.toLowerCase()
+    }));
+  }
+}`}
+                            </pre>
+                        </div>
+
+                        {/* Properties Explanation */}
+                        <div className="space-y-4">
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">type</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Defines the input type. <code>"select"</code> is used for dropdown-based selection.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">dependsOn</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Establishes dependency between fields. The current field will only appear when the parent field has a value.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">getOptions</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    A dynamic function used to fetch or compute options based on selected values. Supports async API calls and local mappings.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">options</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Static list of selectable options (used when API is not required).
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">rules</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Validation rules applied to fields when visible.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        {/* Flow Explanation */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                                Data Flow
+                            </h3>
+
+                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Select <code>continent</code> → loads countries via API</li>
+                                <li>Select <code>country</code> → loads states (static map)</li>
+                                <li>Select <code>state</code> → loads cities</li>
+                                <li>Select <code>city</code> → loads areas</li>
+                                <li>Select <code>area</code> → loads streets</li>
+                            </ul>
+                        </div>
+
+                        {/* UI Behavior */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                                UI Behavior
+                            </h3>
+
+                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Each field is hidden until its parent field is selected</li>
+                                <li>Options update dynamically based on previous selection</li>
+                                <li>API-based fields load data asynchronously</li>
+                                <li>Dependent fields reset automatically when parent changes</li>
+                                <li>Validation applies only to visible fields</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+                        <h2 className="text-2xl font-bold text-blue-600 mb-2">
+                            State Field (Dependent Dropdown)
+                        </h2>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                            A dynamic select field that updates its options based on the selected country. It demonstrates dependency-based rendering using <code>dependsOn</code> and dynamic option generation using <code>getOptions</code>.
+                        </p>
+                    </div>
+
+                    <div className="p-6 space-y-6">
+
+                        {/* Field Name */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                                Field: <span className="text-blue-500">state</span>
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                Represents a dependent dropdown that shows states based on the selected country.
+                            </p>
+                        </div>
+
+                        {/* Description */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                                Description
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                This field uses <code>dependsOn</code> to listen for changes in the <code>country</code> field. Once a country is selected, it dynamically loads the corresponding states using a predefined mapping inside <code>getOptions</code>.
+                            </p>
+                        </div>
+
+                        {/* Schema Block */}
+                        <div className="bg-gray-900 dark:bg-gray-950 rounded-xl overflow-hidden">
+                            <div className="flex justify-between px-4 py-2 bg-gray-800 text-gray-300 text-xs">
+                                <span>schema.js</span>
+                                <button
+                                    onClick={() =>
+                                        handleCopy(`state: {
+  type: "select",
+  label: "State",
+  dependsOn: "country",
+  getOptions: async (values) => {
+    const map = {
+      india: [
+        { label: "Gujarat", value: "gujarat" },
+        { label: "Maharashtra", value: "maharashtra" },
+      ],
+      uae: [
+        { label: "Dubai", value: "dubai" },
+        { label: "Abu Dhabi", value: "abudhabi" },
+      ],
+      germany: [
+        { label: "Bavaria", value: "bavaria" },
+        { label: "Berlin", value: "berlin" },
+      ],
+    };
+
+    return map[values.country] || [];
+  },
+},`, 40)
+                                    }
+                                    className="text-blue-400"
+                                >
+                                    {copiedIndex === 40 ? "Copied!" : "Copy"}
+                                </button>
+                            </div>
+
+                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">{`state: {
+  type: "select",
+  label: "State",
+  dependsOn: "country",
+  getOptions: async (values) => {
+    const map = {
+      india: [
+        { label: "Gujarat", value: "gujarat" },
+        { label: "Maharashtra", value: "maharashtra" },
+      ],
+      uae: [
+        { label: "Dubai", value: "dubai" },
+        { label: "Abu Dhabi", value: "abudhabi" },
+      ],
+      germany: [
+        { label: "Bavaria", value: "bavaria" },
+        { label: "Berlin", value: "berlin" },
+      ],
+    };
+
+    return map[values.country] || [];
+  },
+}`}</pre>
+                        </div>
+
+                        {/* Properties Explanation */}
+                        <div className="space-y-4">
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">type</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Defines the input type. <code>"select"</code> renders a dropdown list.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">label</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    The label displayed above the dropdown field.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">dependsOn</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Specifies that this field depends on the <code>country</code> field. It will only render when a country is selected.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">getOptions</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    A function that dynamically returns options based on the selected country. It uses a local mapping object to simulate API-like behavior.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        {/* UI Behavior */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                                UI Behavior
+                            </h3>
+
+                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Field is hidden until a country is selected</li>
+                                <li>Options update dynamically based on selected country</li>
+                                <li>Returns empty list if no matching country is found</li>
+                                <li>Acts as a middle layer in multi-level dependent fields</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
                     {/* ================= APPLY SAME FOR REST ================= */}
                     {/* IMPORTANT: Just repeat same pattern with index 4,5,6... */}
 
