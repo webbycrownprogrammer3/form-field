@@ -1,20 +1,51 @@
 export const stepSchema = {
   navigation: {
-    nextLabel: "Continue To Next→",
+    nextLabel: "Continue →",
     prevLabel: "← Back",
 
-    onNext: () => {
-      return {
-        error: "Next Is BLocked",
-        next: true
+    onNext: ({ values, step, allValues }) => {
+      console.log("➡️ NEXT CLICKED", step, values);
+      console.log("Current Step Values:", values);     // ✅ only current step
+      console.log("Full Form Values:", allValues);     // ✅ full data
+
+      // 🔥 Check empty fields
+      const hasEmpty = Object.values(values).some(
+        (val) =>
+          val === "" ||
+          val === null ||
+          val === undefined ||
+          (Array.isArray(val) && val.length === 0)
+      );
+
+      if (hasEmpty) {
+        return {
+          next: false,
+          error: "Please fill all fields before continuing 🚫",
+        };
       }
+
+      return { next: true };
     },
 
-    onPrev: () => {
-      return {
-        error: "Previous is blocked by user 🚫",
-        prev: false
-      };
+    onPrev: ({ values, step }) => {
+      console.log("⬅️ PREVIOUS CLICKED", step, values);
+
+      const hasEmpty = Object.values(values).some(
+        (val) =>
+          val === "" ||
+          val === null ||
+          val === undefined ||
+          (Array.isArray(val) && val.length === 0)
+      );
+
+      if (hasEmpty) {
+        return {
+          prev: false,
+          error: "Complete this step before going back ⚠️",
+        };
+      }
+
+      return { prev: true };
     },
   },
 
@@ -1238,28 +1269,51 @@ export const formSchemaTwo = {
 
 export const formSchemaThree = {
   fields: {
-    name: {
-      type: "text",
-      label: "Name",
-      rules: {
-        required: true,
-        requiredMessage: "Name is required",
+
+    personalInfo: {
+      type: "group",
+      label: "Personal Information",
+      description: "Enter your basic personal details",
+      grid: 2,
+
+      fields: {
+        name: {
+          type: "text",
+          label: "Full Name",
+          rules: {
+            required: true,
+            requiredMessage: "Name is required",
+          },
+        },
+
+        username: {
+          type: "text",
+          label: "Username",
+          rules: {
+            required: true,
+            minLength: 3,
+          },
+        },
+
+        email: {
+          type: "email",
+          label: "Email",
+          rules: {
+            required: true,
+            email: true,
+          },
+        },
+
+        phone: {
+          type: "text",
+          label: "Phone Number",
+          rules: {
+            required: true,
+            pattern: /^[0-9]{10}$/,
+            patternMessage: "Phone must be 10 digits",
+          },
+        },
       },
-      // 🔥 pass custom SVG
-      errorIcon: (
-        <svg viewBox="0 0 24 24">
-          <circle
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="red"
-            strokeWidth="2"
-            fill="none"
-          />
-          <line x1="8" y1="8" x2="16" y2="16" stroke="red" strokeWidth="2" />
-          <line x1="16" y1="8" x2="8" y2="16" stroke="red" strokeWidth="2" />
-        </svg>
-      ),
     },
 
     resume: {
@@ -1273,28 +1327,6 @@ export const formSchemaThree = {
       errorIcon: (
         <svg viewBox="0 0 24 24">
           <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-      ),
-    },
-
-    username: {
-      type: "text",
-      label: "Username",
-      rules: {
-        minLength: 3,
-      },
-      errorIcon: (
-        <svg viewBox="0 0 24 24">
-          <circle
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="red"
-            strokeWidth="2"
-            fill="none"
-          />
-          <line x1="8" y1="8" x2="16" y2="16" stroke="red" strokeWidth="2" />
-          <line x1="16" y1="8" x2="8" y2="16" stroke="red" strokeWidth="2" />
         </svg>
       ),
     },
@@ -1932,8 +1964,580 @@ export const genderSchema = {
   },
 };
 
-export const countrySchema = {
+// export const countrySchema = {
+//   fields: {
+// continent: {
+//   type: "select",
+//   label: "Continent",
+//   options: [
+//     { label: "Asia", value: "asia" },
+//     { label: "Europe", value: "europe" },
+//   ],
+//   // events : {
+//   //   [
+//   //     { type: 'click,kewup.keydown', callBack: 'getcontry' }
+//   //   ]
+//   // }
+//   rules: { required: true },
+// },
+
+//     country: {
+//       type: "select",
+//       label: "Country",
+//       // 👇 NATIVE DEPENDENCY INJECTION
+//       dependsOn: "continent",
+//       getOptions: async (values) => {
+//         if (!values.continent) return [];
+
+//         try {
+//           // Fetch countries dynamically based on the continent chosen using the RestCountries API
+//           const response = await fetch(`https://restcountries.com/v3.1/region/${values.continent}?fields=name`);
+//           const data = await response.json();
+
+//           // Transform and sort data alphabetically
+//           return data
+//             .map((country) => ({
+//               label: country.name.common,
+//               value: country.name.common.toLowerCase().replace(/\s+/g, ""), // e.g. "India" -> "india"
+//             }))
+//             .sort((a, b) => a.label.localeCompare(b.label));
+
+//         } catch (error) {
+//           console.error("Failed to fetch countries", error);
+//           return [];
+//         }
+//       },
+//       rules: { required: true },
+//     },
+
+//     state: {
+//       type: "select",
+//       label: "State",
+//       dependsOn: "country",
+//       getOptions: async (values) => {
+//         const map = {
+//           india: [
+//             { label: "Gujarat", value: "gujarat" },
+//             { label: "Maharashtra", value: "maharashtra" },
+//           ],
+//           uae: [
+//             { label: "Dubai", value: "dubai" },
+//             { label: "Abu Dhabi", value: "abudhabi" },
+//           ],
+//           germany: [
+//             { label: "Bavaria", value: "bavaria" },
+//             { label: "Berlin", value: "berlin" },
+//           ],
+//         };
+
+//         return map[values.country] || [];
+//       },
+//     },
+
+//     city: {
+//       type: "select",
+//       label: "City",
+//       dependsOn: "state",
+//       getOptions: async (values) => {
+//         const map = {
+//           gujarat: [
+//             { label: "Ahmedabad", value: "ahmedabad" },
+//             { label: "Rajkot", value: "rajkot" },
+//           ],
+//           maharashtra: [
+//             { label: "Mumbai", value: "mumbai" },
+//             { label: "Pune", value: "pune" },
+//           ],
+//         };
+
+//         return map[values.state] || [];
+//       },
+//       rules: { required: true },
+//     },
+
+//     area: {
+//       type: "select",
+//       label: "Area",
+//       dependsOn: "city",
+//       getOptions: async (values) => {
+//         if (values.city === "rajkot") {
+//           return [
+//             { label: "Kalavad Road", value: "kalavad" },
+//             { label: "Yagnik Road", value: "yagnik" },
+//           ];
+//         }
+//         return [];
+//       },
+//     },
+
+//     street: {
+//       type: "select",
+//       label: "Street",
+//       dependsOn: "area",
+//       getOptions: async (values) => {
+//         if (values.area === "kalavad") {
+//           return [
+//             { label: "Street 1", value: "s1" },
+//             { label: "Street 2", value: "s2" },
+//           ];
+//         }
+//         return [];
+//       },
+//     },
+//   },
+// };
+
+
+export const groupSchema = {
   fields: {
+
+
+    personalInfo: {
+      type: "group",
+      label: "Personal Information",
+      description: "Enter your basic personal details",
+      grid: 3,
+
+      fields: {
+        name: {
+          type: "text",
+          label: "Full Name",
+          rules: {
+            required: true,
+            requiredMessage: "Name is required",
+          },
+        },
+
+        username: {
+          type: "text",
+          label: "Username",
+          rules: {
+            required: true,
+            minLength: 3,
+          },
+        },
+
+        email: {
+          type: "email",
+          label: "Email",
+          rules: {
+            required: true,
+            email: true,
+          },
+        },
+
+        phone: {
+          type: "text",
+          label: "Phone Number",
+          rules: {
+            required: true,
+            pattern: /^[0-9]{10}$/,
+            patternMessage: "Phone must be 10 digits",
+          },
+        },
+      },
+    },
+
+
+  },
+};
+
+// export const locationSchema = {
+//   fields: {
+//     // =========================
+//     // 🌍 CONTINENT
+//     // =========================
+//     continent: {
+//       type: "select",
+//       label: "Continent",
+//       options: [
+//         { label: "Asia", value: "asia" },
+//         { label: "Europe", value: "europe" },
+//       ],
+//       rules: { required: true },
+
+//       events: [
+//         {
+//           trigger: "onChange",
+//           action: "showField",
+//           target: "country",
+//         },
+//         {
+//           trigger: "onChange",
+//           action: "resetField",
+//           target: ["country", "state", "city"],
+//         },
+//         {
+//           trigger: "onChange",
+//           action: "call",
+//           handler: "fetchCountries",
+//         },
+//       ],
+//     },
+
+//     // =========================
+//     // 🌎 COUNTRY
+//     // =========================
+//     country: {
+//       type: "select",
+//       label: "Country",
+//       hidden: true,
+//       rules: { required: true },
+
+//       events: [
+//         {
+//           trigger: "onChange",
+//           action: "showField",
+//           target: "state",
+//         },
+//         {
+//           trigger: "onChange",
+//           action: "resetField",
+//           target: ["state", "city"],
+//         },
+//         {
+//           trigger: "onChange",
+//           action: "call",
+//           handler: "fetchStates",
+//         },
+//       ],
+//     },
+
+//     // =========================
+//     // 🏙️ STATE
+//     // =========================
+//     state: {
+//       type: "select",
+//       label: "State",
+//       hidden: true,
+//       rules: { required: true },
+
+//       events: [
+//         {
+//           trigger: "onChange",
+//           action: "showField",
+//           target: "city",
+//         },
+//         {
+//           trigger: "onChange",
+//           action: "resetField",
+//           target: ["city"],
+//         },
+//         {
+//           trigger: "onChange",
+//           action: "call",
+//           handler: "fetchCities",
+//         },
+//       ],
+//     },
+
+//     // =========================
+//     // 🏡 CITY
+//     // =========================
+//     city: {
+//       type: "select",
+//       label: "City",
+//       hidden: true,
+//       rules: { required: true },
+//     },
+//   },
+// };
+
+
+
+// export const locationSchema = {
+//   fields: {
+//     continent: {
+//       type: "select",
+//       label: "Continent",
+//       options: [
+//         { label: "Asia", value: "asia" },
+//         { label: "Europe", value: "europe" },
+//       ],
+//       rules: { required: true },
+//       events: [
+//         {
+//           type: "change",
+//           callBack: ({ setValues, setOptions }) => {
+//             // Auto reset dependents when parent changes
+//             setValues({ country: "", state: "", city: "" });
+//             setOptions("country", []);
+//           }
+//         }
+//       ]
+//     },
+
+//     country: {
+//       type: "select",
+//       label: "Country",
+//       searchable: true,
+
+//       // 👇 NEW DYNAMIC EVENT MAPPING
+//       events: [
+//         {
+//           type: "click,keyup,keydown",
+//           callBack: async ({ values, setOptions }) => {
+//             if (!values.continent) return;
+//             try {
+//               // Simulated dynamic fetch
+//               const map = {
+//                 asia: [
+//                   { label: "India", value: "india" },
+//                   { label: "Japan", value: "japan" }
+//                 ],
+//                 europe: [
+//                   { label: "Germany", value: "germany" },
+//                   { label: "France", value: "france" }
+//                 ]
+//               };
+//               setOptions("country", map[values.continent] || []);
+//             } catch (error) {
+//               console.error(error);
+//             }
+//           }
+//         },
+//         {
+//           type: "change",
+//           callBack: ({ setValues, setOptions }) => {
+//             setValues({ state: "", city: "" });
+//             setOptions("state", []);
+//           }
+//         }
+//       ],
+//       rules: { required: true },
+//     },
+
+//     state: {
+//       type: "select",
+//       label: "State",
+//       events: [
+//         {
+//           type: "click,keyup,keydown",
+//           callBack: async ({ values, setOptions }) => {
+//             if (!values.country) return;
+//             const map = {
+//               india: [
+//                 { label: "Gujarat", value: "gujarat" },
+//                 { label: "Maharashtra", value: "maharashtra" },
+//               ],
+//               germany: [
+//                 { label: "Bavaria", value: "bavaria" },
+//                 { label: "Berlin", value: "berlin" },
+//               ],
+//             };
+//             setOptions("state", map[values.country] || []);
+//           }
+//         },
+//         {
+//           type: "change",
+//           callBack: ({ setValues, setOptions }) => {
+//             setValues({ city: "" });
+//             setOptions("city", []);
+//           }
+//         }
+//       ],
+//     },
+
+//     city: {
+//       type: "select",
+//       label: "City",
+//       events: [
+//         {
+//           type: "click,keyup,keydown",
+//           callBack: async ({ values, setOptions }) => {
+//             if (!values.state) return;
+//             const map = {
+//               gujarat: [
+//                 { label: "Ahmedabad", value: "ahmedabad" },
+//                 { label: "Rajkot", value: "rajkot" },
+//               ],
+//               maharashtra: [
+//                 { label: "Mumbai", value: "mumbai" },
+//                 { label: "Pune", value: "pune" },
+//               ],
+//             };
+//             setOptions("city", map[values.state] || []);
+//           }
+//         }
+//       ],
+//       rules: { required: true },
+//     },
+//   },
+// };
+
+
+// export const locationSchema = {
+//   fields: {
+//     // ──────────────────────────────────────
+//     // CONTINENT — static options, no events needed
+//     // When user picks continent, country resets automatically
+//     // ──────────────────────────────────────
+//     continent: {
+//       type: "select",
+//       label: "Continent",
+//       placeholder: "Select Continent",
+//       options: [
+//         { label: "Asia", value: "asia" },
+//         { label: "Europe", value: "europe" },
+//         { label: "Americas", value: "americas" },
+//       ],
+//       rules: { required: true },
+//     },
+
+//     // ──────────────────────────────────────
+//     // COUNTRY — depends on continent
+//     // events fire when user opens this dropdown (click / keyup / keydown)
+//     // ──────────────────────────────────────
+//     country: {
+//       type: "select",
+//       label: "Country",
+//       placeholder: "Select Country",
+//       dependsOn: "continent", // ← controls visibility + auto-reset
+
+//       events: [
+//         {
+//           // Fires on click (open dropdown) OR keyup/keydown on the field
+//           type: "click,keyup,keydown",
+//           callBack: async ({ values, setOptions }) => {
+//             if (!values.continent) return;
+
+//             // 🔥 Option A: inline map (fast, no API)
+//             const map = {
+//               asia: [
+//                 { label: "India", value: "india" },
+//                 { label: "Japan", value: "japan" },
+//                 { label: "UAE", value: "uae" },
+//                 { label: "China", value: "china" },
+//               ],
+//               europe: [
+//                 { label: "Germany", value: "germany" },
+//                 { label: "France", value: "france" },
+//                 { label: "UK", value: "uk" },
+//                 { label: "Italy", value: "italy" },
+//               ],
+//               americas: [
+//                 { label: "USA", value: "usa" },
+//                 { label: "Canada", value: "canada" },
+//                 { label: "Brazil", value: "brazil" },
+//               ],
+//             };
+
+//             setOptions("country", map[values.continent] || []);
+
+//             // 🔥 Option B: real API (comment in when ready)
+//             // try {
+//             //   const res = await fetch(`/api/countries?continent=${values.continent}`);
+//             //   const data = await res.json();
+//             //   setOptions('country', data);
+//             // } catch (e) { console.error(e); }
+//           },
+//         },
+//       ],
+//       rules: { required: true },
+//     },
+
+//     // ──────────────────────────────────────
+//     // STATE — depends on country
+//     // ──────────────────────────────────────
+//     state: {
+//       type: "select",
+//       label: "State / Province",
+//       placeholder: "Select State",
+//       dependsOn: "country",
+
+//       events: [
+//         {
+//           type: "click,keyup,keydown",
+//           callBack: async ({ values, setOptions }) => {
+//             if (!values.country) return;
+
+//             const map = {
+//               india: [
+//                 { label: "Gujarat", value: "gujarat" },
+//                 { label: "Maharashtra", value: "maharashtra" },
+//                 { label: "Rajasthan", value: "rajasthan" },
+//                 { label: "Delhi", value: "delhi" },
+//               ],
+//               uae: [
+//                 { label: "Dubai", value: "dubai" },
+//                 { label: "Abu Dhabi", value: "abudhabi" },
+//                 { label: "Sharjah", value: "sharjah" },
+//               ],
+//               germany: [
+//                 { label: "Bavaria", value: "bavaria" },
+//                 { label: "Berlin", value: "berlin" },
+//                 { label: "Hamburg", value: "hamburg" },
+//               ],
+//               usa: [
+//                 { label: "California", value: "california" },
+//                 { label: "New York", value: "newyork" },
+//                 { label: "Texas", value: "texas" },
+//               ],
+//             };
+
+//             setOptions("state", map[values.country] || []);
+//           },
+//         },
+//       ],
+//     },
+
+//     // ──────────────────────────────────────
+//     // CITY — depends on state
+//     // ──────────────────────────────────────
+//     city: {
+//       type: "select",
+//       label: "City",
+//       placeholder: "Select City",
+//       dependsOn: "state",
+
+//       events: [
+//         {
+//           type: "click,keyup,keydown",
+//           callBack: async ({ values, setOptions }) => {
+//             if (!values.state) return;
+
+//             const map = {
+//               gujarat: [
+//                 { label: "Ahmedabad", value: "ahmedabad" },
+//                 { label: "Rajkot", value: "rajkot" },
+//                 { label: "Surat", value: "surat" },
+//                 { label: "Vadodara", value: "vadodara" },
+//               ],
+//               maharashtra: [
+//                 { label: "Mumbai", value: "mumbai" },
+//                 { label: "Pune", value: "pune" },
+//                 { label: "Nagpur", value: "nagpur" },
+//               ],
+//               delhi: [
+//                 { label: "New Delhi", value: "newdelhi" },
+//                 { label: "Dwarka", value: "dwarka" },
+//                 { label: "Noida", value: "noida" },
+//               ],
+//               bavaria: [
+//                 { label: "Munich", value: "munich" },
+//                 { label: "Nuremberg", value: "nuremberg" },
+//               ],
+//               california: [
+//                 { label: "Los Angeles", value: "la" },
+//                 { label: "San Francisco", value: "sf" },
+//                 { label: "San Diego", value: "sd" },
+//               ],
+//             };
+
+//             setOptions("city", map[values.state] || []);
+//           },
+//         },
+//       ],
+//       rules: { required: true },
+//     },
+//   },
+// };
+
+
+
+export const locationSchema = {
+  fields: {
+    // 🌍 CONTINENT
     continent: {
       type: "select",
       label: "Continent",
@@ -1942,111 +2546,69 @@ export const countrySchema = {
         { label: "Europe", value: "europe" },
       ],
       rules: { required: true },
+
+      events: [
+        {
+          trigger: "onChange",
+          action: "showField",
+          target: "country",
+        },
+        {
+          trigger: "onChange",
+          action: "call",
+          handler: "fetchCountries",
+        },
+      ],
     },
 
+    // 🌎 COUNTRY
     country: {
       type: "select",
       label: "Country",
-      // 👇 NATIVE DEPENDENCY INJECTION
-      dependsOn: "continent",
-      getOptions: async (values) => {
-        if (!values.continent) return [];
+      hidden: true, // 👈 start hidden
 
-        try {
-          // Fetch countries dynamically based on the continent chosen using the RestCountries API
-          const response = await fetch(`https://restcountries.com/v3.1/region/${values.continent}?fields=name`);
-          const data = await response.json();
-
-          // Transform and sort data alphabetically
-          return data
-            .map((country) => ({
-              label: country.name.common,
-              value: country.name.common.toLowerCase().replace(/\s+/g, ""), // e.g. "India" -> "india"
-            }))
-            .sort((a, b) => a.label.localeCompare(b.label));
-
-        } catch (error) {
-          console.error("Failed to fetch countries", error);
-          return [];
-        }
-      },
+      events: [
+        {
+          trigger: "onChange",
+          action: "showField",
+          target: "state",
+        },
+        {
+          trigger: "onChange",
+          action: "call",
+          handler: "fetchStates",
+        },
+      ],
       rules: { required: true },
     },
 
+    // 🏙️ STATE
     state: {
       type: "select",
       label: "State",
-      dependsOn: "country",
-      getOptions: async (values) => {
-        const map = {
-          india: [
-            { label: "Gujarat", value: "gujarat" },
-            { label: "Maharashtra", value: "maharashtra" },
-          ],
-          uae: [
-            { label: "Dubai", value: "dubai" },
-            { label: "Abu Dhabi", value: "abudhabi" },
-          ],
-          germany: [
-            { label: "Bavaria", value: "bavaria" },
-            { label: "Berlin", value: "berlin" },
-          ],
-        };
+      hidden: true,
 
-        return map[values.country] || [];
-      },
-    },
-
-    city: {
-      type: "select",
-      label: "City",
-      dependsOn: "state",
-      getOptions: async (values) => {
-        const map = {
-          gujarat: [
-            { label: "Ahmedabad", value: "ahmedabad" },
-            { label: "Rajkot", value: "rajkot" },
-          ],
-          maharashtra: [
-            { label: "Mumbai", value: "mumbai" },
-            { label: "Pune", value: "pune" },
-          ],
-        };
-
-        return map[values.state] || [];
-      },
+      events: [
+        {
+          trigger: "onChange",
+          action: "showField",
+          target: "city",
+        },
+        {
+          trigger: "onChange",
+          action: "call",
+          handler: "fetchCities",
+        },
+      ],
       rules: { required: true },
     },
 
-    area: {
+    // 🏡 CITY
+    city: {
       type: "select",
-      label: "Area",
-      dependsOn: "city",
-      getOptions: async (values) => {
-        if (values.city === "rajkot") {
-          return [
-            { label: "Kalavad Road", value: "kalavad" },
-            { label: "Yagnik Road", value: "yagnik" },
-          ];
-        }
-        return [];
-      },
-    },
-
-    street: {
-      type: "select",
-      label: "Street",
-      dependsOn: "area",
-      getOptions: async (values) => {
-        if (values.area === "kalavad") {
-          return [
-            { label: "Street 1", value: "s1" },
-            { label: "Street 2", value: "s2" },
-          ];
-        }
-        return [];
-      },
+      label: "City",
+      hidden: true,
+      rules: { required: true },
     },
   },
 };
-

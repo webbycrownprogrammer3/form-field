@@ -2619,24 +2619,25 @@ export default function FieldTypePage() {
 
                     </div>
 
+
                     <div className="p-6 border-b border-gray-200 dark:border-gray-800">
                         <h2 className="text-2xl font-bold text-blue-600 mb-2">
-                            Beard Style Field (Conditional / Dependent Field)
+                            Navigation (Custom Step Control)
                         </h2>
                         <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            A conditional text field that appears only when a specific condition is met. In this case, it is shown only when the selected gender is <code>male</code>. It is commonly used for dynamic form rendering based on user input.
+                            Provides full control over step navigation behavior. You can customize button labels and define advanced logic using <code>onNext</code> and <code>onPrev</code> with access to step values and full form data.
                         </p>
                     </div>
 
                     <div className="p-6 space-y-6">
 
-                        {/* Field Name */}
+                        {/* Section Name */}
                         <div>
                             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                                Field: <span className="text-blue-500">beardStyle</span>
+                                Section: <span className="text-blue-500">navigation</span>
                             </h3>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
-                                Represents a conditional input field for selecting or entering beard style preferences.
+                                Controls step navigation including button labels and advanced validation logic using current step values and full form data.
                             </p>
                         </div>
 
@@ -2646,7 +2647,7 @@ export default function FieldTypePage() {
                                 Description
                             </h3>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
-                                This field is dynamically displayed based on another field's value. It uses a <code>showWhen</code> rule to determine visibility. If the user selects <code>male</code> in the gender field, this field becomes visible. Otherwise, it remains hidden.
+                                The <code>navigation</code> object allows you to override default step behavior with full access to form data. You can validate fields, block navigation, and implement custom workflows using <code>values</code>, <code>step</code>, and <code>allValues</code>.
                             </p>
                         </div>
 
@@ -2656,516 +2657,174 @@ export default function FieldTypePage() {
                                 <span>schema.js</span>
                                 <button
                                     onClick={() =>
-                                        handleCopy(`beardStyle: {
-    type: "text",
-    label: "Beard Style",
-    showWhen: {
-        field: "gender",
-        value: "male",
-    },
-    rules: {
-        required: true,
-        requiredMessage: "BeardType is required",
-    },
-    errorIcon: (
-        <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-    ),
-},`, 20)
-                                    }
-                                    className="text-blue-400"
-                                >
-                                    {copiedIndex === 20 ? "Copied!" : "Copy"}
-                                </button>
-                            </div>
+                                        handleCopy(`navigation: {
+  nextLabel: "Continue →",
+  prevLabel: "← Back",
 
-                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">{`beardStyle: {
-    type: "text",
-    label: "Beard Style",
-    showWhen: {
-        field: "gender",
-        value: "male",
-    },
-    rules: {
-        required: true,
-        requiredMessage: "BeardType is required",
-    },
-    errorIcon: (
-        <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-    ),
-},`}</pre>
-                        </div>
+  onNext: ({ values, step, allValues }) => {
+    console.log("➡️ NEXT CLICKED", step, values);
+    console.log("Current Step Values:", values);
+    console.log("Full Form Values:", allValues);
 
-                        {/* Properties Explanation */}
-                        <div className="space-y-4">
+    const hasEmpty = Object.values(values).some(
+      (val) =>
+        val === "" ||
+        val === null ||
+        val === undefined ||
+        (Array.isArray(val) && val.length === 0)
+    );
 
-                            <div>
-                                <h4 className="font-semibold text-blue-500">type</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Defines the field type. <code>"text"</code> allows free text input for beard style.
-                                </p>
-                            </div>
+    if (hasEmpty) {
+      return {
+        next: false,
+        error: "Please fill all fields before continuing 🚫",
+      };
+    }
 
-                            <div>
-                                <h4 className="font-semibold text-blue-500">label</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    The label displayed for the input field.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">showWhen</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Controls conditional visibility of the field based on another field's value.
-                                </p>
-
-                                <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
-                                    <li><strong>field</strong>: The dependent field name (e.g., gender)</li>
-                                    <li><strong>value</strong>: The value that triggers visibility (e.g., male)</li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">rules</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Validation rules applied when the field is visible.
-                                </p>
-
-                                <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
-                                    <li><strong>required</strong>: Ensures input is not empty when field is shown</li>
-                                    <li><strong>requiredMessage</strong>: Custom error message for validation failure</li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">errorIcon</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Custom SVG icon displayed when validation error occurs.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        {/* UI Behavior */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                                UI Behavior
-                            </h3>
-
-                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Field is hidden by default</li>
-                                <li>Only appears when gender is set to <code>male</code></li>
-                                <li>Validation applies only when field is visible</li>
-                                <li>Hidden fields are excluded from submission and error display</li>
-                                <li>Useful for dynamic and role-based form structures</li>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <div className="p-6 border-b border-gray-200 dark:border-gray-800">
-                        <h2 className="text-2xl font-bold text-blue-600 mb-2">
-                            Makeup Type Field (Conditional / Dependent Field)
-                        </h2>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            A conditional text field that appears only when a specific condition is met. In this case, it is shown only when the selected gender is <code>female</code>. It is commonly used for dynamic form rendering based on user input.
-                        </p>
-                    </div>
-
-                    <div className="p-6 space-y-6">
-
-                        {/* Field Name */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                                Field: <span className="text-blue-500">makeupType</span>
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                Represents a conditional input field for selecting or entering makeup style preferences.
-                            </p>
-                        </div>
-
-                        {/* Description */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                                Description
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                This field is dynamically displayed based on another field's value. It uses a <code>showWhen</code> rule to determine visibility. If the user selects <code>female</code> in the gender field, this field becomes visible. Otherwise, it remains hidden.
-                            </p>
-                        </div>
-
-                        {/* Schema Block */}
-                        <div className="bg-gray-900 dark:bg-gray-950 rounded-xl overflow-hidden">
-                            <div className="flex justify-between px-4 py-2 bg-gray-800 text-gray-300 text-xs">
-                                <span>schema.js</span>
-                                <button
-                                    onClick={() =>
-                                        handleCopy(`makeupType: {
-    type: "text",
-    label: "Makeup Type",
-    showWhen: {
-        field: "gender",
-        value: "female",
-    },
-    rules: {
-        required: true,
-        requiredMessage: "MakeupType is required",
-    },
-    errorIcon: (
-        <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-    ),
-},`, 21)
-                                    }
-                                    className="text-blue-400"
-                                >
-                                    {copiedIndex === 21 ? "Copied!" : "Copy"}
-                                </button>
-                            </div>
-
-                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">{`makeupType: {
-    type: "text",
-    label: "Makeup Type",
-    showWhen: {
-        field: "gender",
-        value: "female",
-    },
-    rules: {
-        required: true,
-        requiredMessage: "MakeupType is required",
-    },
-    errorIcon: (
-        <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-        </svg>
-    ),
-},`}</pre>
-                        </div>
-
-                        {/* Properties Explanation */}
-                        <div className="space-y-4">
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">type</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Defines the field type. <code>"text"</code> allows free text input for makeup type.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">label</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    The label displayed for the input field.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">showWhen</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Controls conditional visibility of the field based on another field's value.
-                                </p>
-
-                                <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
-                                    <li><strong>field</strong>: The dependent field name (e.g., gender)</li>
-                                    <li><strong>value</strong>: The value that triggers visibility (e.g., female)</li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">rules</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Validation rules applied when the field is visible.
-                                </p>
-
-                                <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
-                                    <li><strong>required</strong>: Ensures input is not empty when field is shown</li>
-                                    <li><strong>requiredMessage</strong>: Custom error message for validation failure</li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">errorIcon</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Custom SVG icon displayed when validation error occurs.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        {/* UI Behavior */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                                UI Behavior
-                            </h3>
-
-                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Field is hidden by default</li>
-                                <li>Only appears when gender is set to <code>female</code></li>
-                                <li>Validation applies only when field is visible</li>
-                                <li>Hidden fields are excluded from submission and error display</li>
-                                <li>Useful for dynamic and role-based form structures</li>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <div className="p-6 border-b border-gray-200 dark:border-gray-800">
-                        <h2 className="text-2xl font-bold text-blue-600 mb-2">
-                            Country Selection (Dynamic Dependent Fields with API)
-                        </h2>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            A multi-level dependent field system where each field dynamically updates based on the previous selection. It supports both static and API-driven data using <code>dependsOn</code> and <code>getOptions</code>.
-                        </p>
-                    </div>
-
-                    <div className="p-6 space-y-6">
-
-                        {/* Field Name */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                                Fields: <span className="text-blue-500">continent → country → state → city → area → street</span>
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                A hierarchical structure where each field depends on the previous field’s value.
-                            </p>
-                        </div>
-
-                        {/* Description */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                                Description
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                This schema demonstrates dynamic form rendering using dependency-based fields. The <code>country</code> field fetches data from an external API based on the selected continent, while other fields use conditional logic to populate options dynamically.
-                            </p>
-                        </div>
-
-                        {/* Schema Block */}
-                        <div className="bg-gray-900 dark:bg-gray-950 rounded-xl overflow-hidden">
-                            <div className="flex justify-between px-4 py-2 bg-gray-800 text-gray-300 text-xs">
-                                <span>schema.js</span>
-                                <button
-                                    onClick={() => handleCopy(`// countrySchema code`, 30)}
-                                    className="text-blue-400"
-                                >
-                                    {copiedIndex === 30 ? "Copied!" : "Copy"}
-                                </button>
-                            </div>
-
-                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">
-                                {`country: {
-  type: "select",
-  label: "Country",
-  dependsOn: "continent",
-  getOptions: async (values) => {
-    const res = await fetch(\`https://restcountries.com/v3.1/region/\${values.continent}?fields=name\`);
-    const data = await res.json();
-
-    return data.map(c => ({
-      label: c.name.common,
-      value: c.name.common.toLowerCase()
-    }));
-  }
-}`}
-                            </pre>
-                        </div>
-
-                        {/* Properties Explanation */}
-                        <div className="space-y-4">
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">type</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Defines the input type. <code>"select"</code> is used for dropdown-based selection.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">dependsOn</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Establishes dependency between fields. The current field will only appear when the parent field has a value.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">getOptions</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    A dynamic function used to fetch or compute options based on selected values. Supports async API calls and local mappings.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">options</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Static list of selectable options (used when API is not required).
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-blue-500">rules</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Validation rules applied to fields when visible.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        {/* Flow Explanation */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                                Data Flow
-                            </h3>
-
-                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Select <code>continent</code> → loads countries via API</li>
-                                <li>Select <code>country</code> → loads states (static map)</li>
-                                <li>Select <code>state</code> → loads cities</li>
-                                <li>Select <code>city</code> → loads areas</li>
-                                <li>Select <code>area</code> → loads streets</li>
-                            </ul>
-                        </div>
-
-                        {/* UI Behavior */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                                UI Behavior
-                            </h3>
-
-                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Each field is hidden until its parent field is selected</li>
-                                <li>Options update dynamically based on previous selection</li>
-                                <li>API-based fields load data asynchronously</li>
-                                <li>Dependent fields reset automatically when parent changes</li>
-                                <li>Validation applies only to visible fields</li>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <div className="p-6 border-b border-gray-200 dark:border-gray-800">
-                        <h2 className="text-2xl font-bold text-blue-600 mb-2">
-                            State Field (Dependent Dropdown)
-                        </h2>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                            A dynamic select field that updates its options based on the selected country. It demonstrates dependency-based rendering using <code>dependsOn</code> and dynamic option generation using <code>getOptions</code>.
-                        </p>
-                    </div>
-
-                    <div className="p-6 space-y-6">
-
-                        {/* Field Name */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                                Field: <span className="text-blue-500">state</span>
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                Represents a dependent dropdown that shows states based on the selected country.
-                            </p>
-                        </div>
-
-                        {/* Description */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                                Description
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                This field uses <code>dependsOn</code> to listen for changes in the <code>country</code> field. Once a country is selected, it dynamically loads the corresponding states using a predefined mapping inside <code>getOptions</code>.
-                            </p>
-                        </div>
-
-                        {/* Schema Block */}
-                        <div className="bg-gray-900 dark:bg-gray-950 rounded-xl overflow-hidden">
-                            <div className="flex justify-between px-4 py-2 bg-gray-800 text-gray-300 text-xs">
-                                <span>schema.js</span>
-                                <button
-                                    onClick={() =>
-                                        handleCopy(`state: {
-  type: "select",
-  label: "State",
-  dependsOn: "country",
-  getOptions: async (values) => {
-    const map = {
-      india: [
-        { label: "Gujarat", value: "gujarat" },
-        { label: "Maharashtra", value: "maharashtra" },
-      ],
-      uae: [
-        { label: "Dubai", value: "dubai" },
-        { label: "Abu Dhabi", value: "abudhabi" },
-      ],
-      germany: [
-        { label: "Bavaria", value: "bavaria" },
-        { label: "Berlin", value: "berlin" },
-      ],
-    };
-
-    return map[values.country] || [];
+    return { next: true };
   },
-},`, 40)
+
+  onPrev: ({ values, step }) => {
+    console.log("⬅️ PREVIOUS CLICKED", step, values);
+
+    const hasEmpty = Object.values(values).some(
+      (val) =>
+        val === "" ||
+        val === null ||
+        val === undefined ||
+        (Array.isArray(val) && val.length === 0)
+    );
+
+    if (hasEmpty) {
+      return {
+        prev: false,
+        error: "Complete this step before going back ⚠️",
+      };
+    }
+
+    return { prev: true };
+  },
+}`, 51)
                                     }
                                     className="text-blue-400"
                                 >
-                                    {copiedIndex === 40 ? "Copied!" : "Copy"}
+                                    {copiedIndex === 51 ? "Copied!" : "Copy"}
                                 </button>
                             </div>
 
-                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">{`state: {
-  type: "select",
-  label: "State",
-  dependsOn: "country",
-  getOptions: async (values) => {
-    const map = {
-      india: [
-        { label: "Gujarat", value: "gujarat" },
-        { label: "Maharashtra", value: "maharashtra" },
-      ],
-      uae: [
-        { label: "Dubai", value: "dubai" },
-        { label: "Abu Dhabi", value: "abudhabi" },
-      ],
-      germany: [
-        { label: "Bavaria", value: "bavaria" },
-        { label: "Berlin", value: "berlin" },
-      ],
-    };
+                            <pre className="p-4 text-green-400 text-sm overflow-x-auto">{`navigation: {
+  nextLabel: "Continue →",
+  prevLabel: "← Back",
 
-    return map[values.country] || [];
+  onNext: ({ values, step, allValues }) => {
+    console.log("➡️ NEXT CLICKED", step, values);
+    console.log("Current Step Values:", values);
+    console.log("Full Form Values:", allValues);
+
+    const hasEmpty = Object.values(values).some(
+      (val) =>
+        val === "" ||
+        val === null ||
+        val === undefined ||
+        (Array.isArray(val) && val.length === 0)
+    );
+
+    if (hasEmpty) {
+      return {
+        next: false,
+        error: "Please fill all fields before continuing 🚫",
+      };
+    }
+
+    return { next: true };
+  },
+
+  onPrev: ({ values, step }) => {
+    console.log("⬅️ PREVIOUS CLICKED", step, values);
+
+    const hasEmpty = Object.values(values).some(
+      (val) =>
+        val === "" ||
+        val === null ||
+        val === undefined ||
+        (Array.isArray(val) && val.length === 0)
+    );
+
+    if (hasEmpty) {
+      return {
+        prev: false,
+        error: "Complete this step before going back ⚠️",
+      };
+    }
+
+    return { prev: true };
   },
 }`}</pre>
                         </div>
 
-                        {/* Properties Explanation */}
+                        {/* Properties */}
                         <div className="space-y-4">
 
                             <div>
-                                <h4 className="font-semibold text-blue-500">type</h4>
+                                <h4 className="font-semibold text-blue-500">nextLabel</h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Defines the input type. <code>"select"</code> renders a dropdown list.
+                                    Custom label for the Next button.
                                 </p>
                             </div>
 
                             <div>
-                                <h4 className="font-semibold text-blue-500">label</h4>
+                                <h4 className="font-semibold text-blue-500">prevLabel</h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    The label displayed above the dropdown field.
+                                    Custom label for the Previous button.
                                 </p>
                             </div>
 
                             <div>
-                                <h4 className="font-semibold text-blue-500">dependsOn</h4>
+                                <h4 className="font-semibold text-blue-500">onNext</h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Specifies that this field depends on the <code>country</code> field. It will only render when a country is selected.
+                                    Triggered when the Next button is clicked. Receives <code>values</code> (current step data), <code>step</code> (current step index), and <code>allValues</code> (entire form data).
                                 </p>
                             </div>
 
                             <div>
-                                <h4 className="font-semibold text-blue-500">getOptions</h4>
+                                <h4 className="font-semibold text-blue-500">onPrev</h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    A function that dynamically returns options based on the selected country. It uses a local mapping object to simulate API-like behavior.
+                                    Triggered when the Previous button is clicked. Receives <code>values</code> and <code>step</code> to control backward navigation.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">values</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Contains only the current step's field values.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">allValues</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Contains the complete form data across all steps.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">step</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Represents the current step index.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">next / prev</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Boolean flags to allow (<code>true</code>) or block (<code>false</code>) navigation.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold text-blue-500">error</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Custom error message displayed when navigation is blocked.
                                 </p>
                             </div>
 
@@ -3178,10 +2837,13 @@ export default function FieldTypePage() {
                             </h3>
 
                             <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                <li>Field is hidden until a country is selected</li>
-                                <li>Options update dynamically based on selected country</li>
-                                <li>Returns empty list if no matching country is found</li>
-                                <li>Acts as a middle layer in multi-level dependent fields</li>
+                                <li>Next and Previous buttons are always visible</li>
+                                <li><code>onNext</code> validates only current step fields using <code>values</code></li>
+                                <li><code>allValues</code> allows cross-step validation logic</li>
+                                <li>If <code>next: false</code>, navigation is blocked with error message</li>
+                                <li>If <code>prev: false</code>, backward navigation is blocked</li>
+                                <li>Supports dynamic validation and step-level control</li>
+                                <li>Useful for enforcing required fields before moving forward/backward</li>
                             </ul>
                         </div>
 

@@ -10,6 +10,7 @@ import {
   formSchemaThree,
   formSchemaTwo,
   genderSchema,
+  locationSchema,
   stepSchema,
   stepSchemaThree,
   stepSchemaTwo,
@@ -289,6 +290,59 @@ export default function ExamplesPage() {
     },
   ];
 
+  const customHandlers = {
+    // 🌍 Fetch Countries
+    fetchCountries: async ({ value, setOptions }) => {
+      try {
+        const res = await fetch(
+          `https://restcountries.com/v3.1/region/${value}?fields=name`
+        );
+        const data = await res.json();
+
+        const options = data.map((c) => ({
+          label: c.name.common,
+          value: c.name.common.toLowerCase().replace(/\s+/g, ""),
+        }));
+
+        setOptions("country", options);
+      } catch (err) {
+        console.error("Country fetch failed", err);
+      }
+    },
+
+    // 🏙️ Fetch States (Mock)
+    fetchStates: ({ value, setOptions }) => {
+      const map = {
+        india: [
+          { label: "Gujarat", value: "gujarat" },
+          { label: "Maharashtra", value: "maharashtra" },
+        ],
+        germany: [
+          { label: "Bavaria", value: "bavaria" },
+          { label: "Berlin", value: "berlin" },
+        ],
+      };
+
+      setOptions("state", map[value] || []);
+    },
+
+    // 🏡 Fetch Cities (Mock)
+    fetchCities: ({ value, setOptions }) => {
+      const map = {
+        gujarat: [
+          { label: "Ahmedabad", value: "ahmedabad" },
+          { label: "Rajkot", value: "rajkot" },
+        ],
+        maharashtra: [
+          { label: "Mumbai", value: "mumbai" },
+          { label: "Pune", value: "pune" },
+        ],
+      };
+
+      setOptions("city", map[value] || []);
+    },
+  };
+
   const renderExample = () => {
     switch (selectedExample) {
       case "form":
@@ -345,8 +399,10 @@ export default function ExamplesPage() {
         return (
           <Form
             key="dependent-form-1"
-            schema={countrySchema}
+            // schema={countrySchema}
+            schema={locationSchema}
             onSubmit={handleFormSubmitdependent}
+            customHandlers={customHandlers}
             loading={dependentformLoading}
             apiError={dependentformApiError}
           />
@@ -1167,207 +1223,185 @@ export default function Page() {
 
                 <pre className="bg-black text-blue-400 text-sm p-4 rounded-xl overflow-x-auto">
                   {`export const formSchemaThree = {
-    fields: {
+  fields: {
+
+    personalInfo: {
+      type: "group",
+      label: "Personal Information",
+      description: "Enter your basic personal details",
+      grid: 2,
+
+      fields: {
         name: {
-            type: "text",
-            label: "Name",
-            rules: {
-                required: true,
-                requiredMessage: "Name is required",
-            },
-            // 🔥 pass custom SVG
-            errorIcon: (
-                <svg viewBox="0 0 24 24">
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="red"
-                        strokeWidth="2"
-                        fill="none"
-                    />
-                    <line
-                        x1="8"
-                        y1="8"
-                        x2="16"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                    <line
-                        x1="16"
-                        y1="8"
-                        x2="8"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                </svg>
-            ),
+          type: "text",
+          label: "Full Name",
+          rules: {
+            required: true,
+            requiredMessage: "Name is required",
+          },
         },
-        
+
         username: {
-            type: "text",
-            label: "Username",
-            rules: {
-                minLength: 3,
-            },
-            errorIcon: (
-                <svg viewBox="0 0 24 24">
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="red"
-                        strokeWidth="2"
-                        fill="none"
-                    />
-                    <line
-                        x1="8"
-                        y1="8"
-                        x2="16"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                    <line
-                        x1="16"
-                        y1="8"
-                        x2="8"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                </svg>
-            ),
+          type: "text",
+          label: "Username",
+          rules: {
+            required: true,
+            minLength: 3,
+          },
         },
 
-        country: {
-            type: "select",
-            label: "Country",
-            multiSelect: true, // ✅ enables multi select
-            options: [
-                { label: "India", value: "india" },
-                { label: "USA", value: "usa" },
-                { label: "Canada", value: "canada" },
-            ],
-            rules: {
-                required: true,
-                requiredMessage: "Please select a country",
-            },
-            errorIcon: (
-                <svg viewBox="0 0 24 24">
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="red"
-                        strokeWidth="2"
-                        fill="none"
-                    />
-                    <line
-                        x1="8"
-                        y1="8"
-                        x2="16"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                    <line
-                        x1="16"
-                        y1="8"
-                        x2="8"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                </svg>
-            ),
+        email: {
+          type: "email",
+          label: "Email",
+          rules: {
+            required: true,
+            email: true,
+          },
         },
 
-        gender: {
-            type: "radio",
-            label: "Gender",
-            options: [
-                { image: "/images/man.jpg", value: "male" },
-                { image: "/images/female.jpg", value: "female" },
-            ],
-            rules: {
-                required: true,
-                requiredMessage: "Gender is required",
-            },
-            errorIcon: (
-                <svg viewBox="0 0 24 24">
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="red"
-                        strokeWidth="2"
-                        fill="none"
-                    />
-                    <line
-                        x1="8"
-                        y1="8"
-                        x2="16"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                    <line
-                        x1="16"
-                        y1="8"
-                        x2="8"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                </svg>
-            ),
+        phone: {
+          type: "text",
+          label: "Phone Number",
+          rules: {
+            required: true,
+            pattern: /^[0-9]{10}$/,
+            patternMessage: "Phone must be 10 digits",
+          },
         },
-
-        hobbies: {
-            type: "checkbox",
-            label: "Hobbies",
-            options: [
-                // { label: "Cricket", value: "cricket" },
-                { image: "/images/cricket.jpg", value: "cricket" },
-                { label: "Music", value: "music" },
-            ],
-            rules: {
-                required: true,
-                requiredMessage: "Hobbies is required",
-            },
-            errorIcon: (
-                <svg viewBox="0 0 24 24">
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="red"
-                        strokeWidth="2"
-                        fill="none"
-                    />
-                    <line
-                        x1="8"
-                        y1="8"
-                        x2="16"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                    <line
-                        x1="16"
-                        y1="8"
-                        x2="8"
-                        y2="16"
-                        stroke="red"
-                        strokeWidth="2"
-                    />
-                </svg>
-            ),
-        },
+      },
     },
+
+    resume: {
+      type: "file",
+      label: "Upload Resume",
+      accept: ".pdf,.doc",
+      rules: {
+        required: true,
+        requiredMessage: "File is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+        </svg>
+      ),
+    },
+
+    country: {
+      type: "select",
+      label: "Country",
+      multiSelect: true, // ✅ enables multi select
+      options: [
+        { label: "India", value: "india" },
+        { label: "USA", value: "usa" },
+        { label: "Canada", value: "canada" },
+      ],
+      rules: {
+        required: true,
+        requiredMessage: "Please select a country",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="red"
+            strokeWidth="2"
+            fill="none"
+          />
+          <line x1="8" y1="8" x2="16" y2="16" stroke="red" strokeWidth="2" />
+          <line x1="16" y1="8" x2="8" y2="16" stroke="red" strokeWidth="2" />
+        </svg>
+      ),
+    },
+
+    gender: {
+      type: "radio",
+      label: "Gender",
+      options: [
+        { image: "/images/man.jpg", value: "male" },
+        { image: "/images/female.jpg", value: "female" },
+        {
+          icon: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 15 15"
+              version="1.1"
+              id="gaming"
+            >
+              <path
+                d="M13.1,12.5c-0.6,0.3-1.4,0.1-1.8-0.5l-1.1-1.4H4.8L3.7,12l0,0c-0.5,0.7-1.4,0.8-2.1,0.3c-0.5-0.4-0.7-1-0.6-1.5l0.7-3.7l0,0&#10;&#9;C1.9,5.9,3,5,4.2,5v0H7V3.5C7,2.7,7.6,2,8.4,2h3.1C11.8,2,12,2.2,12,2.5S11.8,3,11.5,3h-3C8.2,3,8,3.2,8,3.4c0,0,0,0.1,0,0.1V5h2.8&#10;&#9;v0c1.2,0,2.3,0.9,2.5,2.1l0,0l0.7,3.7l0,0C14.1,11.5,13.8,12.2,13.1,12.5z M6,7.5C6,6.7,5.3,6,4.5,6S3,6.7,3,7.5S3.7,9,4.5,9&#10;&#9;S6,8.3,6,7.5z M12,7.5C12,7.2,11.8,7,11.5,7H11V6.5C11,6.2,10.8,6,10.5,6S10,6.2,10,6.5V7H9.5C9.2,7,9,7.2,9,7.5S9.2,8,9.5,8H10v0.5&#10;&#9;C10,8.8,10.2,9,10.5,9S11,8.8,11,8.5V8h0.5C11.8,8,12,7.8,12,7.5z"
+              />
+            </svg>
+          ),
+          label: "Gaming",
+          value: "gaming",
+        },
+      ],
+      rules: {
+        required: true,
+        requiredMessage: "Gender is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="red"
+            strokeWidth="2"
+            fill="none"
+          />
+          <line x1="8" y1="8" x2="16" y2="16" stroke="red" strokeWidth="2" />
+          <line x1="16" y1="8" x2="8" y2="16" stroke="red" strokeWidth="2" />
+        </svg>
+      ),
+    },
+
+    hobbies: {
+      type: "checkbox",
+      label: "Hobbies",
+      options: [
+        // { label: "Cricket", value: "cricket" },
+        { image: "/images/cricket.jpg", value: "cricket" },
+        { label: "Music", value: "music" },
+        {
+          icon: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 15 15"
+              version="1.1"
+              id="gaming"
+            >
+              <path
+                d="M13.1,12.5c-0.6,0.3-1.4,0.1-1.8-0.5l-1.1-1.4H4.8L3.7,12l0,0c-0.5,0.7-1.4,0.8-2.1,0.3c-0.5-0.4-0.7-1-0.6-1.5l0.7-3.7l0,0&#10;&#9;C1.9,5.9,3,5,4.2,5v0H7V3.5C7,2.7,7.6,2,8.4,2h3.1C11.8,2,12,2.2,12,2.5S11.8,3,11.5,3h-3C8.2,3,8,3.2,8,3.4c0,0,0,0.1,0,0.1V5h2.8&#10;&#9;v0c1.2,0,2.3,0.9,2.5,2.1l0,0l0.7,3.7l0,0C14.1,11.5,13.8,12.2,13.1,12.5z M6,7.5C6,6.7,5.3,6,4.5,6S3,6.7,3,7.5S3.7,9,4.5,9&#10;&#9;S6,8.3,6,7.5z M12,7.5C12,7.2,11.8,7,11.5,7H11V6.5C11,6.2,10.8,6,10.5,6S10,6.2,10,6.5V7H9.5C9.2,7,9,7.2,9,7.5S9.2,8,9.5,8H10v0.5&#10;&#9;C10,8.8,10.2,9,10.5,9S11,8.8,11,8.5V8h0.5C11.8,8,12,7.8,12,7.5z"
+              />
+            </svg>
+          ),
+          label: "Gaming",
+          value: "gaming",
+        },
+      ],
+      rules: {
+        required: true,
+        requiredMessage: "Hobbies is required",
+      },
+      errorIcon: (
+        <svg viewBox="0 0 24 24">
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="red"
+            strokeWidth="2"
+            fill="none"
+          />
+          <line x1="8" y1="8" x2="16" y2="16" stroke="red" strokeWidth="2" />
+          <line x1="16" y1="8" x2="8" y2="16" stroke="red" strokeWidth="2" />
+        </svg>
+      ),
+    },
+  },
 };`}
                 </pre>
               </div>
@@ -1429,217 +1463,304 @@ export default function Page() {
 
                 <pre className="bg-black text-blue-400 text-sm p-4 rounded-xl overflow-x-auto">
                   {`export const stepSchema = {
-    steps: [
-        // ✅ Step 1: Basic Info
-        {
-            title: "Basic Info",
-            fields: {
-                name: {
-                    type: "text",
-                    label: "Name",
-                    rules: {
-                        required: true,
-                        requiredMessage: "Name is required",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-                username: {
-                    type: "text",
-                    label: "Username",
-                    rules: {
-                        minLength: 3,
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-                dob: {
-                    type: "date",
-                    label: "Date of Birth",
-                    rules: {
-                        required: true,
-                        requiredMessage: "Please select your date of birth",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-                dobtime: {
-                    type: "time",
-                    label: "Time of Birth",
-                    rules: {
-                        required: true,
-                        requiredMessage: "Please select your time of birth",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-            },
+  navigation: {
+    nextLabel: "Continue →",
+    prevLabel: "← Back",
+
+    onNext: ({ values, step, allValues }) => {
+      console.log("➡️ NEXT CLICKED", step, values);
+      console.log("Current Step Values:", values);     // ✅ only current step
+      console.log("Full Form Values:", allValues);     // ✅ full data
+
+      // 🔥 Check empty fields
+      const hasEmpty = Object.values(values).some(
+        (val) =>
+          val === "" ||
+          val === null ||
+          val === undefined ||
+          (Array.isArray(val) && val.length === 0)
+      );
+
+      if (hasEmpty) {
+        return {
+          next: false,
+          error: "Please fill all fields before continuing 🚫",
+        };
+      }
+
+      return { next: true };
+    },
+
+    onPrev: ({ values, step }) => {
+      console.log("⬅️ PREVIOUS CLICKED", step, values);
+
+      const hasEmpty = Object.values(values).some(
+        (val) =>
+          val === "" ||
+          val === null ||
+          val === undefined ||
+          (Array.isArray(val) && val.length === 0)
+      );
+
+      if (hasEmpty) {
+        return {
+          prev: false,
+          error: "Complete this step before going back ⚠️",
+        };
+      }
+
+      return { prev: true };
+    },
+  },
+
+  steps: [
+    // ✅ Step 1: Basic Info
+    {
+      title: "Basic Info",
+      fields: {
+        name: {
+          type: "text",
+          label: "Name",
+          // rules: {
+          //   required: true,
+          //   requiredMessage: "Name is required",
+          // },
+          // errorIcon: (
+          //     <svg viewBox="0 0 24 24">
+          //         <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+          //     </svg>
+          // ),
+          errorImage: "images/man.jpg",
+        },
+        username: {
+          type: "text",
+          label: "Username",
+          rules: {
+            minLength: 3,
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+        dob: {
+          type: "date",
+          label: "Date of Birth",
+          rules: {
+            required: true,
+            requiredMessage: "Please select your date of birth",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+        dobtime: {
+          type: "time",
+          label: "Time of Birth",
+          rules: {
+            required: true,
+            requiredMessage: "Please select your time of birth",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+      },
+    },
+
+    // ✅ Step 2: Profile Info
+    {
+      title: "Profile Info",
+      fields: {
+        bio: {
+          type: "textarea",
+          label: "Bio",
+          rules: {
+            required: true,
+            maxLength: 10,
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+        customField: {
+          type: "text",
+          label: "Custom Field",
+          rules: {
+            required: true,
+            validate: (value) =>
+              value !== "admin" || "Value 'admin' is not allowed",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+      },
+    },
+
+    // ✅ Step 3: Contact Info
+    {
+      title: "Contact Info",
+      fields: {
+        email: {
+          type: "email",
+          label: "Email",
+          rules: {
+            required: true,
+            email: true,
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+        phone: {
+          type: "text",
+          label: "Phone",
+          rules: {
+            required: true,
+            pattern: /^[0-9]{10}$/,
+            patternMessage: "Phone must be 10 digits",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+        country: {
+          type: "select",
+          label: "Country",
+          options: [
+            { label: "India", value: "india" },
+            { label: "USA", value: "usa" },
+            { label: "Canada", value: "canada" },
+          ],
+          rules: {
+            required: true,
+            requiredMessage: "Please select a country",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
         },
 
-        // ✅ Step 2: Profile Info
-        {
-            title: "Profile Info",
-            fields: {
-                bio: {
-                    type: "textarea",
-                    label: "Bio",
-                    rules: {
-                        required: true,
-                        maxLength: 10,
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-                customField: {
-                    type: "text",
-                    label: "Custom Field",
-                    rules: {
-                        required: true,
-                        validate: (value) =>
-                            value !== "admin" || "Value 'admin' is not allowed",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-            },
+        gender: {
+          type: "radio",
+          label: "Gender",
+          options: [
+            { label: "Male", value: "male" },
+            { label: "Female", value: "female" },
+          ],
+          rules: {
+            required: true,
+            requiredMessage: "Gender is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
         },
 
-        // ✅ Step 3: Contact Info
-        {
-            title: "Contact Info",
-            fields: {
-                email: {
-                    type: "email",
-                    label: "Email",
-                    rules: {
-                        required: true,
-                        email: true,
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-                phone: {
-                    type: "text",
-                    label: "Phone",
-                    rules: {
-                        required: true,
-                        pattern: /^[0-9]{10}$/,
-                        patternMessage: "Phone must be 10 digits",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-                country: {
-                    type: "select",
-                    label: "Country",
-                    options: [
-                        { label: "India", value: "india" },
-                        { label: "USA", value: "usa" },
-                        { label: "Canada", value: "canada" },
-                    ],
-                    rules: {
-                        required: true,
-                        requiredMessage: "Please select a country",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-
-                gender: {
-                    type: "radio",
-                    label: "Gender",
-                    options: [
-                        { label: "Male", value: "male" },
-                        { label: "Female", value: "female" },
-                    ],
-                    rules: {
-                        required: true,
-                        requiredMessage: "Gender is required",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-
-                hobbies: {
-                    type: "checkbox",
-                    label: "Hobbies",
-                    options: [
-                        { label: "Cricket", value: "cricket" },
-                        { label: "Music", value: "music" },
-                    ],
-                    rules: {
-                        required: true,
-                        requiredMessage: "Hobbies is required",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-
-                resume: {
-                    type: "file",
-                    label: "Upload Resume",
-                    accept: ".pdf,.doc",
-                    rules: {
-                        required: true,
-                        requiredMessage: "File is required",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-
-                profileImage: {
-                    type: "dropzone",
-                    label: "Upload Profile Image",
-                    accept: "image/*",
-                    rules: {
-                        required: true,
-                        requiredMessage: "Profile is required",
-                    },
-                    errorIcon: (
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
-                        </svg>
-                    ),
-                },
-            },
+        beardStyle: {
+          type: "text",
+          label: "Beard Style",
+          showWhen: {
+            field: "gender",
+            value: "male",
+          },
+          rules: {
+            required: true,
+            requiredMessage: "BeardType is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
         },
-    ],
+
+        makeupType: {
+          type: "text",
+          label: "Makeup Type",
+          showWhen: {
+            field: "gender",
+            value: "female",
+          },
+          rules: {
+            required: true,
+            requiredMessage: "MakeupType is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+
+        hobbies: {
+          type: "checkbox",
+          label: "Hobbies",
+          options: [
+            { label: "Cricket", value: "cricket" },
+            { label: "Music", value: "music" },
+          ],
+          rules: {
+            required: true,
+            requiredMessage: "Hobbies is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+
+        resume: {
+          type: "file",
+          label: "Upload Resume",
+          accept: ".pdf,.doc",
+          rules: {
+            required: true,
+            requiredMessage: "File is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+
+        profileImage: {
+          type: "dropzone",
+          label: "Upload Profile Image",
+          accept: "image/*",
+          rules: {
+            required: true,
+            requiredMessage: "Profile is required",
+          },
+          errorIcon: (
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2zm0 14h-1v-4h2v4h-1zm0 4h-1v-2h2v2h-1z" />
+            </svg>
+          ),
+        },
+      },
+    },
+  ],
 };`}
                 </pre>
               </div>
@@ -2451,7 +2572,6 @@ export default function Page() {
                   {`"use client";
 
 import React, { useState } from "react";
-import { examSchema } from "@/utils/schema";
 import { Form, StepForm } from "field-validation";
 
 export default function Page() {
@@ -2459,7 +2579,7 @@ export default function Page() {
   const [dependentformApiError, setdependentFormApiError] = useState(null);
 
   // =========================
-  // ✅ Step Form Submit
+  // ✅ Form Submit
   // =========================
   const handleFormSubmitdependent = async (data) => {
     console.log("Form Data:", data);
@@ -2468,10 +2588,8 @@ export default function Page() {
     setdependentFormApiError(null);
 
     try {
-      await new Promise((resolve, reject) =>
-        setTimeout(() => {
-          resolve(); // ✅ success
-        }, 1500),
+      await new Promise((resolve) =>
+        setTimeout(() => resolve(), 1500)
       );
     } catch (err) {
       setdependentFormApiError(err.message);
@@ -2480,21 +2598,76 @@ export default function Page() {
     }
   };
 
+  // =========================
+  // ✅ Custom Handlers (Dependent Fields)
+  // =========================
+  const customHandlers = {
+    // 🌍 Fetch Countries
+    fetchCountries: async ({ value, setOptions }) => {
+      try {
+        const res = await fetch(
+          \`https://restcountries.com/v3.1/region/\${value}?fields=name\`
+        );
+        const data = await res.json();
+
+        const options = data.map((c) => ({
+          label: c.name.common,
+          value: c.name.common.toLowerCase().replace(/\\s+/g, ""),
+        }));
+
+        setOptions("country", options);
+      } catch (err) {
+        console.error("Country fetch failed", err);
+      }
+    },
+
+    // 🏙️ Fetch States (Mock)
+    fetchStates: ({ value, setOptions }) => {
+      const map = {
+        india: [
+          { label: "Gujarat", value: "gujarat" },
+          { label: "Maharashtra", value: "maharashtra" },
+        ],
+        germany: [
+          { label: "Bavaria", value: "bavaria" },
+          { label: "Berlin", value: "berlin" },
+        ],
+      };
+
+      setOptions("state", map[value] || []);
+    },
+
+    // 🏡 Fetch Cities (Mock)
+    fetchCities: ({ value, setOptions }) => {
+      const map = {
+        gujarat: [
+          { label: "Ahmedabad", value: "ahmedabad" },
+          { label: "Rajkot", value: "rajkot" },
+        ],
+        maharashtra: [
+          { label: "Mumbai", value: "mumbai" },
+          { label: "Pune", value: "pune" },
+        ],
+      };
+
+      setOptions("city", map[value] || []);
+    },
+  };
+
   return (
     <>
       {/* ✅ Normal Form */}
       <Form
         key="dependent-form-1"
-        schema={countrySchema}
+        schema={locationSchema}
+        customHandlers={customHandlers}
         onSubmit={handleFormSubmitdependent}
         loading={dependentformLoading}
         apiError={dependentformApiError}
       />
     </>
   );
-}
-
-`}
+}`}
                 </pre>
               </div>
 
@@ -2505,8 +2678,9 @@ export default function Page() {
                 </h4>
 
                 <pre className="bg-black text-blue-400 text-sm p-4 rounded-xl overflow-x-auto">
-                  {`export const countrySchema = {
+                  {`export const locationSchema = {
   fields: {
+    // 🌍 CONTINENT
     continent: {
       type: "select",
       label: "Continent",
@@ -2515,111 +2689,69 @@ export default function Page() {
         { label: "Europe", value: "europe" },
       ],
       rules: { required: true },
+
+      events: [
+        {
+          trigger: "onChange",
+          action: "showField",
+          target: "country",
+        },
+        {
+          trigger: "onChange",
+          action: "call",
+          handler: "fetchCountries",
+        },
+      ],
     },
 
+    // 🌎 COUNTRY
     country: {
       type: "select",
       label: "Country",
-      // 👇 NATIVE DEPENDENCY INJECTION
-      dependsOn: "continent",
-      getOptions: async (values) => {
-        if (!values.continent) return [];
+      hidden: true, // 👈 start hidden
 
-        try {
-          // Fetch countries dynamically based on the continent chosen
-          // Note: Backslashes added to \$ to keep it as text for the user
-          const response = await fetch(\`https://restcountries.com/v3.1/region/\${values.continent}?fields=name\`);
-          const data = await response.json();
-
-          // Transform and sort data alphabetically
-          return data
-            .map((country) => ({
-              label: country.name.common,
-              value: country.name.common.toLowerCase().replace(/\\s+/g, ""), 
-            }))
-            .sort((a, b) => a.label.localeCompare(b.label));
-
-        } catch (error) {
-          console.error("Failed to fetch countries", error);
-          return [];
-        }
-      },
+      events: [
+        {
+          trigger: "onChange",
+          action: "showField",
+          target: "state",
+        },
+        {
+          trigger: "onChange",
+          action: "call",
+          handler: "fetchStates",
+        },
+      ],
       rules: { required: true },
     },
 
+    // 🏙️ STATE
     state: {
       type: "select",
       label: "State",
-      dependsOn: "country",
-      getOptions: async (values) => {
-        const map = {
-          india: [
-            { label: "Gujarat", value: "gujarat" },
-            { label: "Maharashtra", value: "maharashtra" },
-          ],
-          uae: [
-            { label: "Dubai", value: "dubai" },
-            { label: "Abu Dhabi", value: "abudhabi" },
-          ],
-          germany: [
-            { label: "Bavaria", value: "bavaria" },
-            { label: "Berlin", value: "berlin" },
-          ],
-        };
+      hidden: true,
 
-        return map[values.country] || [];
-      },
-    },
-
-    city: {
-      type: "select",
-      label: "City",
-      dependsOn: "state",
-      getOptions: async (values) => {
-        const map = {
-          gujarat: [
-            { label: "Ahmedabad", value: "ahmedabad" },
-            { label: "Rajkot", value: "rajkot" },
-          ],
-          maharashtra: [
-            { label: "Mumbai", value: "mumbai" },
-            { label: "Pune", value: "pune" },
-          ],
-        };
-
-        return map[values.state] || [];
-      },
+      events: [
+        {
+          trigger: "onChange",
+          action: "showField",
+          target: "city",
+        },
+        {
+          trigger: "onChange",
+          action: "call",
+          handler: "fetchCities",
+        },
+      ],
       rules: { required: true },
     },
 
-    area: {
+    // 🏡 CITY
+    city: {
       type: "select",
-      label: "Area",
-      dependsOn: "city",
-      getOptions: async (values) => {
-        if (values.city === "rajkot") {
-          return [
-            { label: "Kalavad Road", value: "kalavad" },
-            { label: "Yagnik Road", value: "yagnik" },
-          ];
-        }
-        return [];
-      },
-    },
-
-    street: {
-      type: "select",
-      label: "Street",
-      dependsOn: "area",
-      getOptions: async (values) => {
-        if (values.area === "kalavad") {
-          return [
-            { label: "Street 1", value: "s1" },
-            { label: "Street 2", value: "s2" },
-          ];
-        }
-        return [];
-      },
+      label: "City",
+      hidden: true,
+      rules: { required: true },
     },
   },
 };`}
